@@ -17,14 +17,14 @@ animations = [ {
 custom_solver_bias = 0.0
 radius = 11.6813
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
-collision_mask = 1
+collision_mask = 12
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Collision", "Visibility" ]
 horizontal_speed = 5
 vertical_speed = 2
 
