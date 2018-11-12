@@ -5,4 +5,4 @@ func remove_hp(damage):
 	
 func shoot():
 	print("Skeleton.shoot()")
-	
+	$BoneBulletWrapper.shoot()

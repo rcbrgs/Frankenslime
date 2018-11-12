@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Enemies/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Skeleton body.svg" type="Texture" id=2]
 [ext_resource path="res://Enemies/Skeleton arm.svg" type="Texture" id=3]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Bullets/BoneBulletWrapper.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -73,5 +74,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="BlockCollision" type="CollisionShape2D" parent="BlockBody" index="0"]
 
 shape = SubResource( 4 )
+
+[node name="BoneBulletWrapper" parent="." index="5" instance=ExtResource( 5 )]
 
 
