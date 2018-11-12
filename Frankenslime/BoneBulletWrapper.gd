@@ -9,9 +9,9 @@ func shoot():
 	get_parent().get_parent().add_child(bone_up)
 	get_parent().get_parent().add_child(bone_mid)
 	get_parent().get_parent().add_child(bone_down)
-	bone_up.position = get_parent().position
-	bone_mid.position = get_parent().position
-	bone_down.position = get_parent().position
+	bone_up.position = get_parent().position + Vector2(0, 100)
+	bone_mid.position = get_parent().position 
+	bone_down.position = get_parent().position + Vector2(0, -100)
 	if get_parent().get_node("Enemy/Movement").facing_right:
 		bone_up.direction = Vector2(1,1)
 		bone_mid.direction = Vector2(1,0)
