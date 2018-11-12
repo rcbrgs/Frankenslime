@@ -5,6 +5,7 @@ export (int) var horizontal_speed = 5
 export (int) var vertical_speed = 2
 
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
+var facing_right = false
 
 func _physics_process(delta):
 	var motion = Vector2()
@@ -12,12 +13,15 @@ func _physics_process(delta):
 	motion = Vector2(0,0)
 	if Input.is_action_pressed("ui_right"):
 		motion.x = horizontal_speed
+		facing_right = true
 	if Input.is_action_pressed("ui_left"):
 		motion.x = -horizontal_speed
+		facing_right = false
 	if Input.is_action_pressed("ui_up"):
 		motion.y = -vertical_speed
 	if Input.is_action_pressed("ui_down"):
 		motion.y = vertical_speed
+	set_facing()
 	var collisions = move_and_collide(motion)
 	
 	# Clamp player to scene
@@ -36,5 +40,9 @@ func launch_attack():
 	#print("launch_attack")
 	var bullet = spit_bullet_scene.instance()
 	get_parent().add_child(bullet)
+	bullet.facing_right = facing_right
 	bullet.set_initial_position(position)
 	bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
+	
+func set_facing():
+	get_node("BodySprite").flip_h = facing_right
