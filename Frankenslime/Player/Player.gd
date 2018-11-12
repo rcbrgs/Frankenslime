@@ -1,11 +1,15 @@
 extends KinematicBody2D
 
+export (int) var HP = 3
 export (float) var attack_interval = 1.5
 export (int) var horizontal_speed = 5
 export (int) var vertical_speed = 2
 
+onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
+
 var facing_right = false
+var weapon = "spit"
 
 func _physics_process(delta):
 	var motion = Vector2()
@@ -38,11 +42,23 @@ func _physics_process(delta):
 	
 func launch_attack():
 	#print("launch_attack")
-	var bullet = spit_bullet_scene.instance()
-	get_parent().add_child(bullet)
-	bullet.facing_right = facing_right
-	bullet.set_initial_position(position)
-	bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
+	if weapon == "spit":
+		var bullet = spit_bullet_scene.instance()
+		get_parent().add_child(bullet)
+		bullet.facing_right = facing_right
+		bullet.set_initial_position(position)
+		bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
+	if weapon == "bone_shotgun":
+		var bullet = bone_bullet_wrapper_scene.instance()
+		add_child(bullet)
+		bullet.collision_layer = 3
+		bullet.collision_layer_bit = 8
+		bullet.shoot()
 	
 func set_facing():
 	get_node("BodySprite").flip_h = facing_right
+	
+func remove_hp(damage):
+	HP -= damage
+	if HP <= 0:
+		queue_free()

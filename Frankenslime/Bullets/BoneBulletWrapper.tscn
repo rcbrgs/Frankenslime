@@ -5,5 +5,6 @@
 [node name="BoneBulletWrapper" type="Node"]
 
 script = ExtResource( 1 )
+slantedness = 0.15
 
 
