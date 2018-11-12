@@ -1,0 +1,28 @@
+Necroblob                                                                                                                                                                                                     
+
+(Frankenslime) The Necroblob is a beat’em up game that has the core mechanic of adding body parts to your character.
+
+As the Necroblob, the player is challenged to kill and absorb enemies ever more powerful, and by attaching their limbs to itself, the Necroblob will grow stronger (hopefully).
+
+The blob has 3 attachment points for body parts: lower limbs, upper limbs, and internal organ.
+
+Also, each body part gives a small amount of hit points to the Necroblob, which are the first hit points to be spent when taking damage, and spending all the hit points given by a body part disintegrates it.
+
+The order in which HP is lost is: upper limbs, lower limbs, internal organ, blob.                                                                                                                                 
+
+When an enemy dies, it explodes and (possibly) a limb is placed on the screen. When the player is next to the limb, an action key is displayed to remind him that pressing “E” (for instance) allows to pick up the limb. When E is pressed, a pop-up shows how the blob will be affected by the change (for instance, changing a heart for ovaries will show as “-1 regeneration, +1 egg/shot, -2 hp”.
+
+A list of the different body parts and their effect:
+
+Body part        Effect						HP    Enemy
+Strong Arms      +damage					3    Sailor
+Heart            +1 regeneration                		3    Several
+Chicken ovaries  +1 egg per shot                		1    Chicken
+Strong Legs      +speed                    			3    Ostrich
+Wings            fly                        			2    Several
+Skeleton Hands   +5 projectile cone shotgun            		2    Skeleton durrr
+Devils Hoofs     +Leave a trail of flames behind        	2    Demon Creature
+Fin              +Shoot a tidal wave      			1    Sharkman
+Spiked arm       +damage, -speed                		2    Spiked arm crab
+Rock Arms        +Slam the ground creating an earthquake    	3    Golem
+Rat Tail         +Attack enemies behind you with your tail    	1    Rat
