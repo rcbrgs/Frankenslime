@@ -45,6 +45,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 position = Vector2( 146.976, 779.975 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+attack_interval = 1.5
 horizontal_speed = 5
 vertical_speed = 2
 

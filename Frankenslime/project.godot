@@ -43,8 +43,8 @@ ui_down=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="EnemyBlock"
-2d_physics/layer_4="BulletsFromEnemies"
-2d_physics/layer_5="BulletsFromPlayer"
+2d_physics/layer_4="BulletsFromPlayer"
+2d_physics/layer_5="BulletsFromEnemies"
 
 [rendering]
 
