@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Enemies/Skeleton body.svg" type="Texture" id=1]
-[ext_resource path="res://Enemies/Skeleton arm.svg" type="Texture" id=2]
-[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/Skeleton.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/Skeleton body.svg" type="Texture" id=2]
+[ext_resource path="res://Enemies/Skeleton arm.svg" type="Texture" id=3]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -16,7 +17,7 @@ animations = [ {
 [sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -28,12 +29,19 @@ custom_solver_bias = 0.0
 radius = 13.9282
 height = 66.0413
 
-[node name="Skeleton" type="KinematicBody2D"]
+[sub_resource type="CapsuleShape2D" id=4]
+
+custom_solver_bias = 0.0
+radius = 14.393
+height = 4.04388
+
+[node name="Skeleton" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
-collision_mask = 1
+collision_mask = 8
 collision/safe_margin = 0.08
+script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
@@ -51,6 +59,19 @@ animation = "default"
 position = Vector2( 0.790565, 3.42576 )
 shape = SubResource( 3 )
 
-[node name="Enemy" parent="." index="3" instance=ExtResource( 3 )]
+[node name="Enemy" parent="." index="3" instance=ExtResource( 4 )]
+
+[node name="BlockBody" type="KinematicBody2D" parent="." index="4"]
+
+position = Vector2( 1, 35 )
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision" ]
+
+[node name="BlockCollision" type="CollisionShape2D" parent="BlockBody" index="0"]
+
+shape = SubResource( 4 )
 
 
