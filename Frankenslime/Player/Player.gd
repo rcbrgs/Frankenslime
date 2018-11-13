@@ -30,8 +30,10 @@ func _physics_process(delta):
 	if collision != null: 
 		#print("collision.collider = %s" % collision.collider)
 		#print("collision.collider.name = %s" % collision.collider.name)
-		if collision.collider.name == "BoneShotgun":
-			weapon = "bone_shotgun"
+		#print("collision.collider.get_class() = %s" % collision.collider.get_class())
+		#if collision.collider.name == "BoneShotgun":
+		if collision.collider.has_method("wield"):
+			weapon = collision.collider.wield()
 			collision.collider.queue_free()
 	
 	# Clamp player to scene
@@ -67,4 +69,4 @@ func set_facing():
 func remove_hp(damage):
 	HP -= damage
 	if HP <= 0:
-		queue_free()
+		hide()

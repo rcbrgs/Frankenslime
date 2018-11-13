@@ -2,14 +2,15 @@ extends Node
 
 onready var bone_shotgun_scene = preload("res://Limbs/BoneShotgun.tscn")
 
-var HP = 1
 onready var father = get_parent().get_parent()
 onready var level = father.get_parent()
+onready var max_HP = father.HP
 
 func remove_hp(damage):
-	HP -= damage
-	if HP <= 0:
+	father.HP -= damage
+	if father.HP <= 0:
 		yield_limb()
+		level.get_node("AIDirector").total_enemy_HP -= max_HP
 		father.queue_free()
 		
 func yield_limb():

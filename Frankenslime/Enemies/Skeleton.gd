@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export (int) var HP = 2
+
 var limb_type = "BoneShotgun"
 
 func remove_hp(damage):

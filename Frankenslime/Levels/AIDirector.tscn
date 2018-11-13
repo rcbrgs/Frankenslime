@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Levels/AIDirector.gd" type="Script" id=1]
+
+[node name="AIDirector" type="Node"]
+
+script = ExtResource( 1 )
+interval_between_spawns = 3
+
+[node name="SpawnTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+

@@ -15,7 +15,11 @@ export (int) var wander_step_y
 export (float) var wander_wait_time = 1
 
 func _ready():
-	initial_position = get_parent().get_parent().position
+	#initial_position = get_parent().get_parent().position
+	pass
+
+func set_initial_position(pos):
+	initial_position = pos
 
 func _physics_process(delta):
 	# update behaviour
@@ -86,4 +90,6 @@ func set_facing(origin, destiny):
 		facing_right = false
 			
 	get_parent().get_parent().get_node("BodySprite").flip_h = facing_right
+	if get_parent().get_parent().get_node("Weapon") == null:
+		return
 	get_parent().get_parent().get_node("Weapon").get_node("AnimatedSprite").flip_h = facing_right
