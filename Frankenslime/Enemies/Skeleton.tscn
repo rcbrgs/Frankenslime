@@ -37,7 +37,7 @@ custom_solver_bias = 0.0
 radius = 14.393
 height = 4.04388
 
-[node name="Skeleton" type="KinematicBody2D" index="0"]
+[node name="Skeleton" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 2
@@ -83,5 +83,6 @@ shape = SubResource( 4 )
 [node name="Weapon" parent="." index="6" instance=ExtResource( 6 )]
 
 position = Vector2( 5.03648, 5.61763 )
+collision_layer = 2
 
 

@@ -81,6 +81,8 @@ func wander():
 	set_facing(en.position, en.position + wander)
 	en.position += wander
 	en.position.x = clamp(en.position.x, initial_position.x - wander_range_x, initial_position.x + wander_range_x)
+	var scene_params = get_node("../../../SceneParameters")
+	en.position.x = clamp(en.position.x, scene_params.min_x, scene_params.max_x)
 
 var facing_right = false
 func set_facing(origin, destiny):

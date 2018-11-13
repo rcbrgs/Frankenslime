@@ -10,6 +10,7 @@ onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
 
 var facing_right = false
 var weapon = "spit"
+var weapon_node = null
 
 func _physics_process(delta):
 	var motion = Vector2()
@@ -32,9 +33,9 @@ func _physics_process(delta):
 		#print("collision.collider.name = %s" % collision.collider.name)
 		#print("collision.collider.get_class() = %s" % collision.collider.get_class())
 		#if collision.collider.name == "BoneShotgun":
-		if collision.collider.has_method("wield"):
-			weapon = collision.collider.wield()
-			collision.collider.queue_free()
+		if collision.collider.get_parent() != self:
+			if collision.collider.has_method("wield"):
+				weapon = collision.collider.wield(self)
 	
 	# Clamp player to scene
 	var scene = get_parent().get_node("SceneParameters")
@@ -65,6 +66,8 @@ func launch_attack():
 	
 func set_facing():
 	get_node("BodySprite").flip_h = facing_right
+	if weapon_node != null:
+		weapon_node.get_node("AnimatedSprite").flip_h = facing_right
 	
 func remove_hp(damage):
 	HP -= damage

@@ -22,3 +22,4 @@ func yield_limb():
 		level.add_child(bone_shotgun)
 		bone_shotgun.translate(initial_position)
 		bone_shotgun.rotate(PI/4)
+		bone_shotgun.set_owner(level)

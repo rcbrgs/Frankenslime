@@ -5,6 +5,7 @@
 [node name="AIDirector" type="Node"]
 
 script = ExtResource( 1 )
+HP_multiplier = 3
 interval_between_spawns = 3
 
 [node name="SpawnTimer" type="Timer" parent="." index="0"]

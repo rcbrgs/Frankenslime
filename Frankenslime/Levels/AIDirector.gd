@@ -1,5 +1,6 @@
 extends Node
 
+export (int) var HP_multiplier = 3
 export (float) var interval_between_spawns = 3
 
 var total_enemy_HP = 0
@@ -14,7 +15,7 @@ func _process(delta):
 	if ! weakref(player).get_ref():
 		return
 	#print("total_enemy_HP = %d" % total_enemy_HP)
-	if total_enemy_HP > player.HP:
+	if total_enemy_HP > HP_multiplier * player.HP:
 		return
 	spawn_an_enemy()
 
@@ -24,11 +25,12 @@ func spawn_an_enemy():
 	$SpawnTimer.start()
 	var coin = round(randf())
 	var initial_position = Vector2(0,0)
+	var initial_position_y = randf() * (get_node("../SceneParameters").max_y - get_node("../SceneParameters").min_y) + get_node("../SceneParameters").min_y
 	if coin == 0:
-		initial_position = Vector2(get_node("../SceneParameters").min_x, (get_node("../SceneParameters").max_y - get_node("../SceneParameters").min_y) / 2 + get_node("../SceneParameters").min_y)
+		initial_position = Vector2(get_node("../SceneParameters").min_x + 10, initial_position_y)
 	else:
-		initial_position = Vector2(get_node("../SceneParameters").max_x - 100, (get_node("../SceneParameters").max_y - get_node("../SceneParameters").min_y) / 2 + get_node("../SceneParameters").min_y)
-	print("Spawn an enemy at %s." % initial_position)
+		initial_position = Vector2(get_node("../SceneParameters").max_x - 10, initial_position_y)
+	#print("Spawn an enemy at %s." % initial_position)
 	# choose enemy type
 	var enemy = skeleton_scene.instance()
 	get_parent().add_child(enemy)
