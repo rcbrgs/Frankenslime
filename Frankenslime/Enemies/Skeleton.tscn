@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Enemies/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Skeleton body.svg" type="Texture" id=2]
 [ext_resource path="res://Enemies/Skeleton arm.svg" type="Texture" id=3]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Bullets/BoneBulletWrapper.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Limbs/BoneShotgun.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -50,8 +51,9 @@ _sections_unfolded = [ "Collision" ]
 frames = SubResource( 1 )
 animation = "default"
 
-[node name="ArmSprite" type="AnimatedSprite" parent="." index="1"]
+[node name="WeaponSprite" type="AnimatedSprite" parent="." index="1"]
 
+visible = false
 frames = SubResource( 2 )
 animation = "default"
 
@@ -76,5 +78,9 @@ _sections_unfolded = [ "Collision" ]
 shape = SubResource( 4 )
 
 [node name="BoneBulletWrapper" parent="." index="5" instance=ExtResource( 5 )]
+
+[node name="Weapon" parent="." index="6" instance=ExtResource( 6 )]
+
+position = Vector2( 5.03648, 5.61763 )
 
 

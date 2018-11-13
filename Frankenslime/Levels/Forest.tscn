@@ -21,8 +21,6 @@ _sections_unfolded = [ "Collision", "Transform" ]
 [node name="Player" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 146.976, 779.975 )
-_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
-HP = 3
 
 [node name="SceneParameters" type="Node" parent="." index="3"]
 

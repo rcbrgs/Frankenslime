@@ -19,6 +19,7 @@ radius = 2.47815
 
 [node name="SpitBullet" type="RigidBody2D"]
 
+scale = Vector2( 2, 2 )
 input_pickable = false
 collision_layer = 0
 collision_mask = 0
@@ -38,7 +39,7 @@ linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 damage = 1
 speed_x = 200.0
 speed_y = 100.0

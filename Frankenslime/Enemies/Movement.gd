@@ -23,10 +23,10 @@ func _physics_process(delta):
 	# can we see player?
 	var enemy = get_parent().get_parent()
 	var player = get_parent().get_parent().get_parent().get_node("Player")
-	var distance = enemy.position.distance_to(player.position)
-	#print("distance = %f" % distance)
-	if distance < vision_radius:
-		behaviour = behaviours.attacking
+	if player != null:
+		var distance = enemy.position.distance_to(player.position)
+		if distance < vision_radius:
+			behaviour = behaviours.attacking
 	
 	# act according to behaviour
 	if behaviour == behaviours.idle:
@@ -86,3 +86,4 @@ func set_facing(origin, destiny):
 		facing_right = false
 			
 	get_parent().get_parent().get_node("BodySprite").flip_h = facing_right
+	get_parent().get_parent().get_node("Weapon").get_node("AnimatedSprite").flip_h = facing_right

@@ -26,7 +26,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_down"):
 		motion.y = vertical_speed
 	set_facing()
-	var collisions = move_and_collide(motion)
+	var collision = move_and_collide(motion)
+	if collision != null: 
+		#print("collision.collider = %s" % collision.collider)
+		#print("collision.collider.name = %s" % collision.collider.name)
+		if collision.collider.name == "BoneShotgun":
+			weapon = "bone_shotgun"
+			collision.collider.queue_free()
 	
 	# Clamp player to scene
 	var scene = get_parent().get_node("SceneParameters")

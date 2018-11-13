@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var limb_type = "BoneShotgun"
+
 func remove_hp(damage):
 	$Enemy/Health.remove_hp(damage)
 	
