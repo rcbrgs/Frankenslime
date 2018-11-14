@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Enemies/Crab.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/Crab body.svg" type="Texture" id=2]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 9.15495
+height = 49.0623
+
+[node name="Crab" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 8
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+HP = 3
+
+[node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
+
+frames = SubResource( 1 )
+animation = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( -13, 3 )
+rotation = 1.5708
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Enemy" parent="." index="2" instance=ExtResource( 3 )]
+
+[node name="Pincer" parent="." index="3" instance=ExtResource( 4 )]
+
+collision_layer = 2
+collision_mask = 0
+
+

@@ -6,6 +6,7 @@ export (float) var interval_between_spawns = 3
 var total_enemy_HP = 0
 
 onready var skeleton_scene = preload("res://Enemies/Skeleton.tscn")
+onready var crab_scene = preload("res://Enemies/Crab.tscn")
 onready var player = get_node("../Player")
 
 func _process(delta):
@@ -32,7 +33,12 @@ func spawn_an_enemy():
 		initial_position = Vector2(get_node("../SceneParameters").max_x - 10, initial_position_y)
 	#print("Spawn an enemy at %s." % initial_position)
 	# choose enemy type
-	var enemy = skeleton_scene.instance()
+	var enemy
+	coin = round(randf())
+	if coin == 0:
+		enemy = skeleton_scene.instance()
+	else:
+		enemy = crab_scene.instance()
 	get_parent().add_child(enemy)
 	enemy.translate(initial_position)
 	enemy.get_node("Enemy/Movement").set_initial_position (initial_position)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Limbs/BoneShotgun.gd" type="Script" id=1]
-[ext_resource path="res://Limbs/Skeleton arm.svg" type="Texture" id=2]
+[ext_resource path="res://Limbs/Pincer.gd" type="Script" id=1]
+[ext_resource path="res://Limbs/Crab arm.svg" type="Texture" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -15,10 +15,10 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=2]
 
 custom_solver_bias = 0.0
-radius = 3.50136
-height = 35.4705
+radius = 10.0
+height = 17.8161
 
-[node name="BoneShotgun" type="KinematicBody2D"]
+[node name="Pincer" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 32
@@ -31,11 +31,10 @@ _sections_unfolded = [ "Collision" ]
 
 frames = SubResource( 1 )
 animation = "default"
-_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 1, 1 )
+position = Vector2( -4.00001, 6.00001 )
 rotation = 0.785398
 shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]

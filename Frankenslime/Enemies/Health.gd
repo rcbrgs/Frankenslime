@@ -1,6 +1,7 @@
 extends Node
 
 onready var bone_shotgun_scene = preload("res://Limbs/BoneShotgun.tscn")
+onready var pincer_scene = preload("res://Limbs/Pincer.tscn")
 
 onready var father = get_parent().get_parent()
 onready var level = father.get_parent()
@@ -15,11 +16,13 @@ func remove_hp(damage):
 		
 func yield_limb():
 	var limb_type = father.limb_type
+	var initial_position = father.position
+	var weapon
 	if limb_type == "BoneShotgun":
-		var initial_position = father.position
-		#print("Yielding a BoneShotgun at %s" % initial_position)
-		var bone_shotgun = bone_shotgun_scene.instance()
-		level.add_child(bone_shotgun)
-		bone_shotgun.translate(initial_position)
-		bone_shotgun.rotate(PI/4)
-		bone_shotgun.set_owner(level)
+		weapon = bone_shotgun_scene.instance()
+		weapon.rotate(PI/4)
+	if limb_type == "Pincer":
+		weapon = pincer_scene.instance()
+	level.add_child(weapon)
+	weapon.translate(initial_position)
+	weapon.set_owner(level)

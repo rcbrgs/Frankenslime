@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Skeleton arm.svg-16f243b23a72e1b850118b015e7ef743.stex"
+path="res://.import/Skeleton arm.svg-a97a0a8a7d5514c518323b6b29ff8cc3.stex"
 
 [deps]
 
-source_file="res://Enemies/Skeleton arm.svg"
-dest_files=[ "res://.import/Skeleton arm.svg-16f243b23a72e1b850118b015e7ef743.stex" ]
+source_file="res://Limbs/Skeleton arm.svg"
+dest_files=[ "res://.import/Skeleton arm.svg-a97a0a8a7d5514c518323b6b29ff8cc3.stex" ]
 
 [params]
 
