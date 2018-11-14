@@ -8,4 +8,9 @@ func wield(new_parent):
 	new_parent.add_child(bone_shotgun)
 	new_parent.weapon_node = bone_shotgun
 	queue_free()
+	new_parent.connect("unwield_weapon", bone_shotgun, "_on_Player_unwield_weapon")
 	return "bone_shotgun"
+	
+func _on_Player_unwield_weapon():
+	queue_free()
+	#print("queue_free on unwield")

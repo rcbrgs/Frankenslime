@@ -1,16 +1,23 @@
 extends KinematicBody2D
 
-export (int) var HP = 3
+signal changed_player_hp(hp, max_hp)
+signal unwield_weapon()
+
+export (int) var max_HP = 3
 export (float) var attack_interval = 1.5
 export (int) var horizontal_speed = 5
 export (int) var vertical_speed = 2
 
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
+onready var HP = max_HP
 
 var facing_right = false
 var weapon = "spit"
 var weapon_node = null
+
+func _ready():
+	emit_signal("changed_player_hp", HP, max_HP)
 
 func _physics_process(delta):
 	var motion = Vector2()
@@ -29,12 +36,9 @@ func _physics_process(delta):
 	set_facing()
 	var collision = move_and_collide(motion)
 	if collision != null: 
-		#print("collision.collider = %s" % collision.collider)
-		#print("collision.collider.name = %s" % collision.collider.name)
-		#print("collision.collider.get_class() = %s" % collision.collider.get_class())
-		#if collision.collider.name == "BoneShotgun":
 		if collision.collider.get_parent() != self:
 			if collision.collider.has_method("wield"):
+				unwield()
 				weapon = collision.collider.wield(self)
 	
 	# Clamp player to scene
@@ -71,5 +75,10 @@ func set_facing():
 	
 func remove_hp(damage):
 	HP -= damage
+	emit_signal("changed_player_hp", HP, max_HP)
 	if HP <= 0:
 		hide()
+		
+func unwield():
+	weapon = "spit"
+	emit_signal("unwield_weapon")
