@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Enemies/Crab.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Crab body.svg" type="Texture" id=2]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/BlockBody.gd" type="Script" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -20,7 +21,13 @@ custom_solver_bias = 0.0
 radius = 9.15495
 height = 49.0623
 
-[node name="Crab" type="KinematicBody2D"]
+[sub_resource type="CapsuleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 23.4102
+
+[node name="Crab" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
@@ -48,5 +55,21 @@ _sections_unfolded = [ "Transform" ]
 
 collision_layer = 2
 collision_mask = 0
+
+[node name="BlockBody" type="KinematicBody2D" parent="." index="4"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+collision/safe_margin = 0.08
+script = ExtResource( 5 )
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockBody" index="0"]
+
+position = Vector2( -7, 3 )
+rotation = 1.5708
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
 
 

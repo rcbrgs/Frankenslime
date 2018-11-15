@@ -7,6 +7,7 @@ export (int) var max_HP = 3
 export (float) var attack_interval = 1.5
 export (int) var horizontal_speed = 5
 export (int) var vertical_speed = 2
+export (float) var melee_interval = 1
 
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
@@ -15,6 +16,7 @@ onready var HP = max_HP
 var facing_right = false
 var weapon = "spit"
 var weapon_node = null
+var melee_active = false
 
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
@@ -40,6 +42,13 @@ func _physics_process(delta):
 			if collision.collider.has_method("wield"):
 				unwield()
 				weapon = collision.collider.wield(self)
+			elif collision.collider.has_method("remove_hp"):
+				if melee_active:
+					print("melee hit")
+					collision.collider.remove_hp(weapon_node.damage)
+					melee_active = false
+			else:
+				print("untreated collision: Player and %s" % collision.collider.name)
 	
 	# Clamp player to scene
 	var scene = get_parent().get_node("SceneParameters")
@@ -67,6 +76,13 @@ func launch_attack():
 		bullet.collision_layer = 3
 		bullet.collision_layer_bit = 8
 		bullet.shoot()
+	if weapon == "pincer":
+		if $MeleeTimer.is_stopped():
+			#weapon_node.set_collision_mask_bit(1, true)
+			weapon_node.get_node("AnimatedSprite").play("attacking")
+			melee_active = true
+			$MeleeTimer.set_wait_time(melee_interval)
+			$MeleeTimer.start()
 	
 func set_facing():
 	get_node("BodySprite").flip_h = facing_right
@@ -82,3 +98,8 @@ func remove_hp(damage):
 func unwield():
 	weapon = "spit"
 	emit_signal("unwield_weapon")
+
+func _on_MeleeTimer_timeout():
+	#weapon_node.set_collision_mask_bit(1, false)
+	weapon_node.get_node("AnimatedSprite").play("default")
+	melee_active = false

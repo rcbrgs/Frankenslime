@@ -30,6 +30,7 @@ max_HP = 3
 attack_interval = 1.5
 horizontal_speed = 5
 vertical_speed = 2
+melee_interval = 1
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
 
@@ -47,5 +48,14 @@ process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
+
+[node name="MeleeTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 
 
