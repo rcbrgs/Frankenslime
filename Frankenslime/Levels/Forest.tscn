@@ -1,32 +1,68 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Levels/Forest background 01.png" type="Texture" id=1]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Levels/SceneParameters.gd" type="Script" id=3]
-[ext_resource path="res://Levels/AIDirector.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Levels/GUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/SceneParameters.gd" type="Script" id=2]
+[ext_resource path="res://Levels/AIDirector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Levels/GUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Levels/background_vektor_v5-1-01.png" type="Texture" id=5]
 
-[node name="Forest" type="Node"]
+[node name="Forest" type="Node" index="0"]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 960.056, 539.261 )
-texture = ExtResource( 1 )
+position = Vector2( 400, 749.912 )
 
-[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+[node name="SceneParameters" type="Node" parent="." index="1"]
 
-position = Vector2( 990.418, 749.912 )
-
-[node name="SceneParameters" type="Node" parent="." index="2"]
-
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 min_x = 0
 max_x = 1920
-min_y = 700
-max_y = 900
+min_y = 580
+max_y = 1050
 
-[node name="AIDirector" parent="." index="3" instance=ExtResource( 4 )]
+[node name="AIDirector" parent="." index="2" instance=ExtResource( 3 )]
 
-[node name="GUI" parent="." index="4" instance=ExtResource( 5 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="3"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="GUI" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
+
+margin_right = 340.0
+margin_bottom = 60.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+scroll_offset = Vector2( 0, 0 )
+scroll_base_offset = Vector2( 0, 0 )
+scroll_base_scale = Vector2( 1, 1 )
+scroll_limit_begin = Vector2( 0, 0 )
+scroll_limit_end = Vector2( 0, 0 )
+scroll_ignore_camera_zoom = false
+_sections_unfolded = [ "Scroll" ]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+
+motion_scale = Vector2( 1, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 1920, 0 )
+_sections_unfolded = [ "Motion", "Transform", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
+
+position = Vector2( 960, 540 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1920, 1080 )
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 

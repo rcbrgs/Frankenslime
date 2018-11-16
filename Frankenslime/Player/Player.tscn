@@ -27,9 +27,9 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 max_HP = 3
-attack_interval = 1.5
-horizontal_speed = 5
-vertical_speed = 2
+attack_interval = 0.1
+horizontal_speed = 10
+vertical_speed = 10
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
 
@@ -47,5 +47,31 @@ process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
+
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = 0
+limit_top = 0
+limit_right = 10000000
+limit_bottom = 0
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = false
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.3
+drag_margin_bottom = 0.0
+editor_draw_screen = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+_sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform", "Visibility" ]
 
 
