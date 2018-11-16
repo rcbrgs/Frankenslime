@@ -1,7 +1,8 @@
 extends RigidBody2D
 
 export (int) var damage = 1
-export (float) var speed = 500
+export (float) var speed = 1750
+export (float) var fire_interval = 0.3
 
 var direction = Vector2(0,0)
 
@@ -13,3 +14,8 @@ func impulse():
 func _on_BoneBullet_body_entered(body):
 	body.remove_hp(damage)
 	queue_free()
+	
+func _process(delta):
+	if position.y < -10:
+		print("shot outside window")
+		queue_free()

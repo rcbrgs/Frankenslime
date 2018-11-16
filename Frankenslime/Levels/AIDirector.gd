@@ -28,9 +28,10 @@ func spawn_an_enemy():
 	var initial_position = Vector2(0,0)
 	var initial_position_y = randf() * (get_node("../SceneParameters").max_y - get_node("../SceneParameters").min_y) + get_node("../SceneParameters").min_y
 	if coin == 0:
-		initial_position = Vector2(get_node("../SceneParameters").min_x + 10, initial_position_y)
+		#initial_position = Vector2(get_node("../SceneParameters").min_x + 10, initial_position_y)
+		initial_position = Vector2(get_node("../Player").min_save_pos + 50, initial_position_y)
 	else:
-		initial_position = Vector2(get_node("../SceneParameters").max_x - 10, initial_position_y)
+		initial_position = Vector2(get_node("../Player").min_save_pos + get_node("../SceneParameters").max_x - 50, initial_position_y)
 	#print("Spawn an enemy at %s." % initial_position)
 	# choose enemy type
 	var enemy

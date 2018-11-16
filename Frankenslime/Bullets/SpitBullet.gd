@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 export (int) var damage = 1
-export (float) var speed_x
+export (float) var speed_x = 2000
 export (float) var speed_y
 
 var facing_right = false

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export (float) var fire_interval = 0.5
+
 onready var bone_shotgun_scene = preload("res://Limbs/BoneShotgun.tscn")
 
 func wield(new_parent):

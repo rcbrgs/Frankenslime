@@ -1,6 +1,7 @@
 extends Node
 
 export (float) var slantedness = 0.15
+#export (float) var fire_interval = 1
 
 onready var bone_bullet_scene = preload("res://Bullets/BoneBullet.tscn")
 var collision_layer = 3
@@ -16,12 +17,12 @@ func shoot():
 	get_parent().get_parent().add_child(bone_up)
 	get_parent().get_parent().add_child(bone_mid)
 	get_parent().get_parent().add_child(bone_down)
-	bone_up.position = get_parent().position + Vector2(0, 100)
+	bone_up.position = get_parent().position + Vector2(0, 50)
 	bone_mid.position = get_parent().position 
-	bone_down.position = get_parent().position + Vector2(0, -100)
+	bone_down.position = get_parent().position + Vector2(0, -50)
 	var face_right = false
-	var move_scene = get_parent().get_node("Enemy/Movement") 
-	if move_scene != null:
+	if get_parent().has_node("Enemy/Movement"):
+		var move_scene = get_parent().get_node("Enemy/Movement") 
 		face_right = move_scene.facing_right
 	else:
 		face_right = get_parent().facing_right

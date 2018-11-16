@@ -7,11 +7,12 @@
 [ext_resource path="res://Levels/background_vektor_v5-1-01.png" type="Texture" id=5]
 [ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=6]
 
-[node name="Forest" type="Node" index="0"]
+[node name="Forest" type="Node"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 477, 749.912 )
+spit_attack_interval = 0.5
 
 [node name="SceneParameters" type="Node" parent="." index="1"]
 
@@ -69,5 +70,6 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 [node name="Pincer" parent="." index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 1254.06, 763.261 )
+fire_interval = 2
 
 

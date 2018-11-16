@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export (int) var damage = 3
+export (float) var fire_interval = 2
 
 onready var weapon_scene = preload("res://Limbs/Pincer.tscn")
 

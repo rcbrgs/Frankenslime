@@ -14,19 +14,28 @@ export (int) var wander_step_x
 export (int) var wander_step_y
 export (float) var wander_wait_time = 1
 
-func _ready():
-	#initial_position = get_parent().get_parent().position
-	pass
+onready var enemy = get_parent().get_parent()
+onready var player = get_parent().get_parent().get_parent().get_node("Player")
 
 func set_initial_position(pos):
 	initial_position = pos
+	print("initial_position = %s" % initial_position)
+
+func enemy_outside_window():
+	if enemy.position.x < get_node("../../../Player").min_save_pos:
+		print("freeing at %s for min_save_pos %s" % [enemy.position, get_node("../../../Player").min_save_pos])
+		return true
+	return false
 
 func _physics_process(delta):
+	if enemy_outside_window():
+		print("freeing enemy outside window")
+		get_node("../../../AIDirector").total_enemy_HP -= get_node("../Health").max_HP
+		queue_free()
+		return
 	# update behaviour
 	behaviour = behaviours.idle
 	# can we see player?
-	var enemy = get_parent().get_parent()
-	var player = get_parent().get_parent().get_parent().get_node("Player")
 	if player != null:
 		var distance = enemy.position.distance_to(player.position)
 		if distance < vision_radius:
@@ -82,7 +91,7 @@ func wander():
 	en.position += wander
 	en.position.x = clamp(en.position.x, initial_position.x - wander_range_x, initial_position.x + wander_range_x)
 	var scene_params = get_node("../../../SceneParameters")
-	en.position.x = clamp(en.position.x, scene_params.min_x, scene_params.max_x)
+	#en.position.x = clamp(en.position.x, scene_params.min_x, scene_params.max_x)
 
 var facing_right = false
 func set_facing(origin, destiny):
@@ -92,6 +101,6 @@ func set_facing(origin, destiny):
 		facing_right = false
 			
 	get_parent().get_parent().get_node("BodySprite").flip_h = facing_right
-	if get_parent().get_parent().get_node("Weapon") == null:
+	if not get_parent().get_parent().has_node("Weapon"):
 		return
 	get_parent().get_parent().get_node("Weapon").get_node("AnimatedSprite").flip_h = facing_right

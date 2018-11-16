@@ -5,7 +5,7 @@ signal unwield_weapon()
 
 export (int) var max_HP = 3
 export (float) var melee_interval = 1
-export (float) var attack_interval = 0.1
+export (float) var spit_attack_interval = 0.5
 export (int) var horizontal_speed = 10
 export (int) var vertical_speed = 10
 
@@ -18,7 +18,7 @@ var weapon = "spit"
 var weapon_node = null
 var melee_active = false
 
-var min_save_pos = 0
+var min_save_pos = 0 # The leftmost position of the walkable window
 var min_last_pos = 0
 
 func _ready():
@@ -84,6 +84,9 @@ func camera_and_lookback():
 	if Input.is_action_pressed("action_shoot"):
 		if $AttackTimer.is_stopped():
 			launch_attack()
+			var attack_interval = spit_attack_interval
+			if weapon_node != null:
+				attack_interval = weapon_node.fire_interval
 			$AttackTimer.set_wait_time(attack_interval)
 			$AttackTimer.start()
 	
