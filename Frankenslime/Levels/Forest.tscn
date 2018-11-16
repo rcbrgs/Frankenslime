@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/SceneParameters.gd" type="Script" id=2]
 [ext_resource path="res://Levels/AIDirector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/GUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Levels/background_vektor_v5-1-01.png" type="Texture" id=5]
+[ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=6]
 
 [node name="Forest" type="Node" index="0"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 400, 749.912 )
+position = Vector2( 477, 749.912 )
 
 [node name="SceneParameters" type="Node" parent="." index="1"]
 
@@ -69,6 +69,5 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 [node name="Pincer" parent="." index="5" instance=ExtResource( 6 )]
 
 position = Vector2( 1254.06, 763.261 )
-damage = 3
 
 
