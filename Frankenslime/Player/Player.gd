@@ -56,7 +56,7 @@ func _physics_process(delta):
 	position.y = clamp(position.y, scene.min_y, scene.max_y)
 	
 	# Attack
-	if Input.is_action_pressed("ui_select"):
+	if Input.is_action_pressed("action_shoot"):
 		if $AttackTimer.is_stopped():
 			launch_attack()
 			$AttackTimer.set_wait_time(attack_interval)
