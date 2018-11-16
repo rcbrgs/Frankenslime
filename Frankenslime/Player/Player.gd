@@ -4,10 +4,10 @@ signal changed_player_hp(hp, max_hp)
 signal unwield_weapon()
 
 export (int) var max_HP = 3
-export (float) var attack_interval = 1.5
-export (int) var horizontal_speed = 5
-export (int) var vertical_speed = 2
 export (float) var melee_interval = 1
+export (float) var attack_interval = 0.1
+export (int) var horizontal_speed = 10
+export (int) var vertical_speed = 10
 
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
@@ -17,6 +17,9 @@ var facing_right = false
 var weapon = "spit"
 var weapon_node = null
 var melee_active = false
+
+var min_save_pos = 0
+var min_last_pos = 0
 
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
@@ -50,11 +53,33 @@ func _physics_process(delta):
 			else:
 				print("untreated collision: Player and %s" % collision.collider.name)
 	
-	# Clamp player to scene
+				
+	# Clamp player to scene and forward moving camera2D
+	# only clamping y position for vertical range. x-movement clamping is done in func camera_and_lookback()
 	var scene = get_parent().get_node("SceneParameters")
-	position.x = clamp(position.x, scene.min_x, scene.max_x)
+	camera_and_lookback()
 	position.y = clamp(position.y, scene.min_y, scene.max_y)
+
+func camera_and_lookback():
+	# general: good practice -> dont check stuff inside delta+input conditionals directly.
+	# hinders performance. moving stuff out of input event conditional works.
+	# first condition saves pos half a screen behind current player pos for use in limit_left of Camera2D.
+	# and second condition ensures offset so that player gets blocked from movement at left screen-edge
+	# (instead of directly after turning left from middle of screen)
+	if self.position.x + (get_viewport().size.x / 2) > min_save_pos and (position.x - (get_viewport().size.x / 2) > min_save_pos):
+		min_save_pos = self.position.x - (get_viewport().size.x / 2)
+		min_last_pos = self.position.x
+	#print ("min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
+	min_last_pos = int(min_last_pos)
+	get_node("Camera2D").limit_left = min_save_pos
 	
+	#adding some 45px threshold offsets to the right in order to trigger conditionals walking to left screen edge.
+	#(prolly around 2x20px screen border or so difference in actual viewport/window width)
+	if position.x < min_save_pos + 45:
+		#print ("positions in left-loop: min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
+		position.x = min_save_pos + 45
+		#print(get_viewport().size.x)
+		
 	# Attack
 	if Input.is_action_pressed("action_shoot"):
 		if $AttackTimer.is_stopped():
