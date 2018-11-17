@@ -28,5 +28,5 @@ func shoot():
 	var player = get_node("../../Player")
 	var distance = player.position.distance_to(opponent.position)
 	#print("Crab.shoot(): distance = %f, player.position = %s, opponent.position = %s" % [distance, player.position, opponent.position])
-	if distance < 40:
+	if distance < 50:
 		player.remove_hp(damage)

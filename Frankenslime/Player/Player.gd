@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal changed_player_hp(hp, max_hp)
 signal unwield_weapon()
 
+export (int) var jump_height = 250
+export (int) var jump_speed = 30
 export (int) var max_HP = 3
 export (float) var melee_interval = 1
 export (float) var spit_attack_interval = 0.5
@@ -22,6 +24,7 @@ var melee_active = false
 var min_save_pos = 0 # The leftmost position of the walkable window
 var min_last_pos = 0
 var motion = Vector2()
+onready var scene = get_parent().get_node("SceneParameters")
 	
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
@@ -70,8 +73,21 @@ func _physics_process(delta):
 				
 	# Clamp player to scene and forward moving camera2D
 	# only clamping y position for vertical range. x-movement clamping is done in func camera_and_lookback()
-	var scene = get_parent().get_node("SceneParameters")
 	camera_and_lookback()
+	# jump
+	if jumping:
+		#print("jumping")
+		if position.y <= jump_y:
+			jumping = false
+			falling = true
+		else:
+			position.y -= jump_speed
+	if falling:
+		#print("falling")
+		if position.y >= jump_initial_y:
+			falling = false
+		else:
+			position.y += jump_speed
 	position.y = clamp(position.y, scene.min_y, scene.max_y)
 
 func camera_and_lookback():
@@ -137,6 +153,18 @@ func _on_MeleeTimer_timeout():
 	weapon_node.get_node("AnimatedSprite").play("default")
 	melee_active = false
 	
+var jumping = false
+var falling = false
+var jump_y = 0
+var jump_initial_y = 0
+
 func jump():
-	print("Player.jump()")
+	if $JumpTimer.is_stopped():
+		print("Player.jump()")
+		$JumpTimer.set_wait_time(1)
+		$JumpTimer.start()
+		jump_initial_y = position.y
+		jump_y = position.y - jump_height
+		jump_y = clamp(jump_y, scene.min_y, scene.max_y)
+		jumping = true
 	

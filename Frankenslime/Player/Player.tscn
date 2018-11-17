@@ -26,6 +26,8 @@ collision_mask = 52
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+jump_height = 250
+jump_speed = 30
 max_HP = 3
 melee_interval = 1
 spit_attack_interval = 0.5
@@ -76,6 +78,13 @@ editor_draw_drag_margin = true
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform", "Visibility" ]
 
 [node name="MeleeTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="JumpTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 1.0

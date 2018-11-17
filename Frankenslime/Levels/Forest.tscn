@@ -12,6 +12,8 @@
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 477, 749.912 )
+jump_height = 250
+jump_speed = 30
 spit_attack_interval = 0.5
 
 [node name="SceneParameters" type="Node" parent="." index="1"]
