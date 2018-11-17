@@ -13,9 +13,15 @@ func _ready():
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/Background/Number").text = str(hp)
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/HPProgressBar").value = hp
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/HPProgressBar").max_value = max_hp
+	
+	#current points
+	get_node("../../GameDirector").connect("points_changed", self, "_on_GameDirector_points_changed")
 
 func _on_Player_hp_changed(hp, max_hp):
 	#print("_on_Player_hp_changed")
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/Background/Number").text = str(hp)
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/HPProgressBar").value = hp
 	get_node("HBoxContainer/MarginContainer/HBoxContainer/HPProgressBar").max_value = max_hp
+	
+func _on_GameDirector_points_changed(points):
+	get_node("HBoxContainer/MarginContainer/HBoxContainer/CurrentPoints").text = str(points)

@@ -12,6 +12,7 @@ func remove_hp(damage):
 	if father.HP <= 0:
 		yield_limb()
 		level.get_node("AIDirector").total_enemy_HP -= max_HP
+		level.get_node("GameDirector").add_points(max_HP)
 		father.queue_free()
 		
 func yield_limb():
