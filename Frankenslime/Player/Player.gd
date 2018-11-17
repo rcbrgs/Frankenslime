@@ -13,6 +13,7 @@ onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
 onready var HP = max_HP
 
+var dead = false
 var facing_right = false
 var weapon = "spit"
 var weapon_node = null
@@ -20,14 +21,15 @@ var melee_active = false
 
 var min_save_pos = 0 # The leftmost position of the walkable window
 var min_last_pos = 0
-
+var motion = Vector2()
+	
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
 
-func _physics_process(delta):
-	var motion = Vector2()
-	
+func get_input():
 	motion = Vector2(0,0)
+	if dead:
+		return
 	if Input.is_action_pressed("ui_right"):
 		motion.x = horizontal_speed
 		facing_right = true
@@ -40,6 +42,17 @@ func _physics_process(delta):
 		motion.y = vertical_speed
 	if Input.is_action_pressed("action_jump"):
 		jump()
+	if Input.is_action_pressed("action_shoot"):
+		if $AttackTimer.is_stopped():
+			launch_attack()
+			var attack_interval = spit_attack_interval
+			if weapon_node != null:
+				attack_interval = weapon_node.fire_interval
+			$AttackTimer.set_wait_time(attack_interval)
+			$AttackTimer.start()
+
+func _physics_process(delta):
+	get_input()
 	set_facing()
 	var collision = move_and_collide(motion)
 	if collision != null: 
@@ -80,17 +93,7 @@ func camera_and_lookback():
 		#print ("positions in left-loop: min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
 		position.x = min_save_pos + 45
 		#print(get_viewport().size.x)
-		
-	# Attack
-	if Input.is_action_pressed("action_shoot"):
-		if $AttackTimer.is_stopped():
-			launch_attack()
-			var attack_interval = spit_attack_interval
-			if weapon_node != null:
-				attack_interval = weapon_node.fire_interval
-			$AttackTimer.set_wait_time(attack_interval)
-			$AttackTimer.start()
-	
+			
 func launch_attack():
 	#print("launch_attack")
 	if weapon == "spit":
@@ -122,6 +125,7 @@ func remove_hp(damage):
 	HP -= damage
 	emit_signal("changed_player_hp", HP, max_HP)
 	if HP <= 0:
+		dead = true
 		hide()
 		
 func unwield():

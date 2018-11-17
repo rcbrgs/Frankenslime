@@ -17,7 +17,7 @@ animations = [ {
 custom_solver_bias = 0.0
 radius = 11.6813
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 scale = Vector2( 2, 2 )
 input_pickable = false
@@ -28,7 +28,7 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 max_HP = 3
 melee_interval = 1
-attack_interval = 0.1
+spit_attack_interval = 0.5
 horizontal_speed = 10
 vertical_speed = 10
 
@@ -48,15 +48,6 @@ process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
-
-[node name="MeleeTimer" type="Timer" parent="." index="3"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = true
-autostart = false
-
-[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 
 [node name="Camera2D" type="Camera2D" parent="." index="3"]
 
@@ -83,3 +74,14 @@ editor_draw_screen = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform", "Visibility" ]
+
+[node name="MeleeTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+
+
