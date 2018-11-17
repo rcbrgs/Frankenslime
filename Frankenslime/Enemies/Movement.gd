@@ -19,17 +19,17 @@ onready var player = get_parent().get_parent().get_parent().get_node("Player")
 
 func set_initial_position(pos):
 	initial_position = pos
-	print("initial_position = %s" % initial_position)
+	#print("initial_position = %s" % initial_position)
 
 func enemy_outside_window():
 	if enemy.position.x < get_node("../../../Player").min_save_pos:
-		print("freeing at %s for min_save_pos %s" % [enemy.position, get_node("../../../Player").min_save_pos])
+		#print("freeing at %s for min_save_pos %s" % [enemy.position, get_node("../../../Player").min_save_pos])
 		return true
 	return false
 
 func _physics_process(delta):
 	if enemy_outside_window():
-		print("freeing enemy outside window")
+		#print("freeing enemy outside window")
 		get_node("../../../AIDirector").total_enemy_HP -= get_node("../Health").max_HP
 		queue_free()
 		return
