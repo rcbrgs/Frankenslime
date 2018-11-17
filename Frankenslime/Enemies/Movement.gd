@@ -37,9 +37,10 @@ func _physics_process(delta):
 	behaviour = behaviours.idle
 	# can we see player?
 	if player != null:
-		var distance = enemy.position.distance_to(player.position)
-		if distance < vision_radius:
-			behaviour = behaviours.attacking
+		if not player.dead:
+			var distance = enemy.position.distance_to(player.position)
+			if distance < vision_radius:
+				behaviour = behaviours.attacking
 	
 	# act according to behaviour
 	if behaviour == behaviours.idle:
