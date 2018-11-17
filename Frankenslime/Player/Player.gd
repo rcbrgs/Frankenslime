@@ -38,6 +38,8 @@ func _physics_process(delta):
 		motion.y = -vertical_speed
 	if Input.is_action_pressed("ui_down"):
 		motion.y = vertical_speed
+	if Input.is_action_pressed("action_jump"):
+		jump()
 	set_facing()
 	var collision = move_and_collide(motion)
 	if collision != null: 
@@ -52,7 +54,6 @@ func _physics_process(delta):
 					melee_active = false
 			else:
 				print("untreated collision: Player and %s" % collision.collider.name)
-	
 				
 	# Clamp player to scene and forward moving camera2D
 	# only clamping y position for vertical range. x-movement clamping is done in func camera_and_lookback()
@@ -131,3 +132,7 @@ func _on_MeleeTimer_timeout():
 	#weapon_node.set_collision_mask_bit(1, false)
 	weapon_node.get_node("AnimatedSprite").play("default")
 	melee_active = false
+	
+func jump():
+	print("Player.jump()")
+	
