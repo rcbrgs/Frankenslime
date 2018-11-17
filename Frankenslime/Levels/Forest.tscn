@@ -13,7 +13,7 @@
 
 position = Vector2( 477, 749.912 )
 jump_height = 250
-jump_speed = 30
+jump_speed = 25
 spit_attack_interval = 0.5
 
 [node name="SceneParameters" type="Node" parent="." index="1"]

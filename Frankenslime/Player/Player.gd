@@ -4,7 +4,7 @@ signal changed_player_hp(hp, max_hp)
 signal unwield_weapon()
 
 export (int) var jump_height = 250
-export (int) var jump_speed = 30
+export (int) var jump_speed = 25
 export (int) var max_HP = 3
 export (float) var melee_interval = 1
 export (float) var spit_attack_interval = 0.5
@@ -160,7 +160,7 @@ var jump_initial_y = 0
 
 func jump():
 	if $JumpTimer.is_stopped():
-		print("Player.jump()")
+		#print("Player.jump()")
 		$JumpTimer.set_wait_time(1)
 		$JumpTimer.start()
 		jump_initial_y = position.y
