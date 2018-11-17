@@ -11,8 +11,4 @@ func remove_hp(damage):
 	$Enemy/Health.remove_hp(damage)
 	
 func shoot():
-	#print("Skeleton.shoot()")
-	#$BoneBulletWrapper.collision_layer = 4
-	#$BoneBulletWrapper.collision_layer_bit = true
-	#$BoneBulletWrapper.shoot()
-	pass
+	$Pincer.shoot()

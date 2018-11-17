@@ -22,3 +22,11 @@ func _process(delta):
 	var collisions = get_slide_count()
 	if collisions != 0:
 		print("collisions = %d" % collisions)
+		
+func shoot():
+	var opponent = get_node("..")
+	var player = get_node("../../Player")
+	var distance = player.position.distance_to(opponent.position)
+	#print("Crab.shoot(): distance = %f, player.position = %s, opponent.position = %s" % [distance, player.position, opponent.position])
+	if distance < 40:
+		player.remove_hp(damage)
