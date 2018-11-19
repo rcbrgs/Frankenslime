@@ -175,4 +175,8 @@ func jump():
 		jumping = true
 	
 func _process(delta):
-		anim_node.change_animation("hop", anim_node)
+	if motion == Vector2(0,0):
+		print("motionvector is 0, 0")
+		anim_node.change_animation("idle", anim_node)
+	else:
+		anim_node.change_animation(anim_state, anim_node)

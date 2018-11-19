@@ -8,7 +8,7 @@
 [ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Levels/GameDirector.tscn" type="PackedScene" id=7]
 
-[node name="Forest" type="Node" index="0"]
+[node name="Forest" type="Node"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 

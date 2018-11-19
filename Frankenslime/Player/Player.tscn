@@ -24,10 +24,10 @@ animations = [ {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "hop",
-"speed": 5.0
+"speed": 10.0
 } ]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 
 resource_name = "hop"
 length = 0.01
@@ -58,7 +58,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource_name = "idle"
 length = 0.01
@@ -89,7 +89,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 
 custom_solver_bias = 0.0
 radius = 11.6813
@@ -125,15 +125,15 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/hop = SubResource( 5 )
-anims/idle = SubResource( 4 )
+anims/hop = SubResource( 2 )
+anims/idle = SubResource( 3 )
 blend_times = [  ]
 script = ExtResource( 12 )
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="AttackTimer" type="Timer" parent="." index="2"]
 
