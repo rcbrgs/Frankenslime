@@ -14,9 +14,10 @@ export (int) var vertical_speed = 10
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
 onready var HP = max_HP
+onready var anim_state = "none"
 
 var dead = false
-var facing_right = false
+var h_flipper = false
 var weapon = "spit"
 var weapon_node = null
 var melee_active = false
@@ -28,6 +29,8 @@ onready var scene = get_parent().get_node("SceneParameters")
 	
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
+	
+	change_animation("hop")
 
 func get_input():
 	motion = Vector2(0,0)
@@ -35,14 +38,18 @@ func get_input():
 		return
 	if Input.is_action_pressed("ui_right"):
 		motion.x = horizontal_speed
-		facing_right = true
+		h_flipper = false
+		change_animation("hop")
 	if Input.is_action_pressed("ui_left"):
 		motion.x = -horizontal_speed
-		facing_right = false
+		h_flipper = true
+		change_animation("hop")
 	if Input.is_action_pressed("ui_up"):
 		motion.y = -vertical_speed
+		change_animation("hop")
 	if Input.is_action_pressed("ui_down"):
 		motion.y = vertical_speed
+		change_animation("hop")
 	if Input.is_action_pressed("action_jump"):
 		jump()
 	if Input.is_action_pressed("action_shoot"):
@@ -115,7 +122,7 @@ func launch_attack():
 	if weapon == "spit":
 		var bullet = spit_bullet_scene.instance()
 		get_parent().add_child(bullet)
-		bullet.facing_right = facing_right
+		bullet.h_flipper = h_flipper
 		bullet.set_initial_position(position)
 		bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
 	if weapon == "bone_shotgun":
@@ -133,9 +140,9 @@ func launch_attack():
 			$MeleeTimer.start()
 	
 func set_facing():
-	get_node("BodySprite").flip_h = facing_right
+	get_node("BodySprite").flip_h = h_flipper
 	if weapon_node != null:
-		weapon_node.get_node("AnimatedSprite").flip_h = facing_right
+		weapon_node.get_node("BodySprite").flip_h = h_flipper
 	
 func remove_hp(damage):
 	HP -= damage
@@ -167,4 +174,11 @@ func jump():
 		jump_y = position.y - jump_height
 		jump_y = clamp(jump_y, scene.min_y, scene.max_y)
 		jumping = true
+
+onready var anim_node = get_node("BodySprite/AnimationPlayer")
+
+func change_animation(anim_state):	
+	if anim_state != anim_node.current_animation:
+		anim_node.play(anim_state)
+	
 	
