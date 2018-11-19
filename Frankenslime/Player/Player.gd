@@ -60,6 +60,8 @@ func get_input():
 				attack_interval = weapon_node.fire_interval
 			$AttackTimer.set_wait_time(attack_interval)
 			$AttackTimer.start()
+			
+func _physics_process(delta):
 	get_input()
 	set_facing()
 	var collision = move_and_collide(motion)
