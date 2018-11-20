@@ -175,8 +175,10 @@ func jump():
 		jumping = true
 	
 func _process(delta):
-	if motion == Vector2(0,0):
+	if anim_state == "spit":
+		anim_node.change_animation(anim_state, anim_node)
+	elif anim_state != "" and motion != Vector2(0, 0):
+		anim_node.change_animation(anim_state, anim_node)
+	elif motion == Vector2(0,0):
 		print("motionvector is 0, 0")
 		anim_node.change_animation("idle", anim_node)
-	else:
-		anim_node.change_animation(anim_state, anim_node)

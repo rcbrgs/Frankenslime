@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/anim/idle/exp__0000_0_a_idle_v1-01.png.png" type="Texture" id=2]
@@ -11,7 +11,14 @@
 [ext_resource path="res://Player/anim/hop/exp__0003_0_a_hop_v1-04.png.png" type="Texture" id=9]
 [ext_resource path="res://Player/anim/hop/exp__0004_0_a_hop_v1-05.png.png" type="Texture" id=10]
 [ext_resource path="res://Player/anim/hop/exp__0005_0_a_hop_v1-06.png.png" type="Texture" id=11]
-[ext_resource path="res://Player/AnimationPlayer.gd" type="Script" id=12]
+[ext_resource path="res://Player/anim/spit/exp__0000_0_a_spit_v1-01.png.png" type="Texture" id=12]
+[ext_resource path="res://Player/anim/spit/exp__0001_0_a_spit_v1-02.png.png" type="Texture" id=13]
+[ext_resource path="res://Player/anim/spit/exp__0002_0_a_spit_v1-03.png.png" type="Texture" id=14]
+[ext_resource path="res://Player/anim/spit/exp__0003_0_a_spit_v1-04.png.png" type="Texture" id=15]
+[ext_resource path="res://Player/anim/spit/exp__0004_0_a_spit_v1-05.png.png" type="Texture" id=16]
+[ext_resource path="res://Player/anim/spit/exp__0005_0_a_spit_v1-06.png.png" type="Texture" id=17]
+[ext_resource path="res://Player/anim/spit/exp__0006_0_a_spit_v1-07.png.png" type="Texture" id=18]
+[ext_resource path="res://Player/AnimationPlayer.gd" type="Script" id=19]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -19,12 +26,17 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "hop",
-"speed": 10.0
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "spit",
+"speed": 14.0
 } ]
 
 [sub_resource type="Animation" id=2]
@@ -42,7 +54,7 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 2,
 "values": [ "hop" ]
 }
 tracks/1/type = "value"
@@ -54,7 +66,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 2,
 "values": [ true ]
 }
 
@@ -75,6 +87,37 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 2,
 "values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:playing")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "spit"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "spit" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:playing")
@@ -115,7 +158,8 @@ vertical_speed = 10
 
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
-animation = "idle"
+animation = "spit"
+frame = 1
 _sections_unfolded = [ "Transform" ]
 
 [node name="Animator" type="AnimationPlayer" parent="AnimatedSprites" index="0"]
@@ -127,8 +171,10 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/hop = SubResource( 2 )
 anims/idle = SubResource( 3 )
+anims/spit = SubResource( 5 )
+next/spit = "idle"
 blend_times = [  ]
-script = ExtResource( 12 )
+script = ExtResource( 19 )
 _sections_unfolded = [ "Playback Options" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
