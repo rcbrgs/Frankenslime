@@ -8,8 +8,8 @@ export (int) var jump_speed = 25
 export (int) var max_HP = 3
 export (float) var melee_interval = 1
 export (float) var spit_attack_interval = 0.5
-export (int) var horizontal_speed = 10
-export (int) var vertical_speed = 10
+export (int) var horizontal_speed = 500
+export (int) var vertical_speed = 250
 
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
@@ -57,7 +57,7 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	set_facing()
-	var collision = move_and_collide(motion)
+	var collision = move_and_collide(motion * delta)
 	if collision != null: 
 		if collision.collider.get_parent() != self:
 			if collision.collider.has_method("wield"):
@@ -65,11 +65,11 @@ func _physics_process(delta):
 				weapon = collision.collider.wield(self)
 			elif collision.collider.has_method("remove_hp"):
 				if melee_active:
-					print("melee hit")
+					print("Player._physics_process: melee hit")
 					collision.collider.remove_hp(weapon_node.damage)
 					melee_active = false
 			else:
-				print("untreated collision: Player and %s" % collision.collider.name)
+				print("Player._physics_process: untreated collision with %s" % collision.collider.name)
 				
 	# Clamp player to scene and forward moving camera2D
 	# only clamping y position for vertical range. x-movement clamping is done in func camera_and_lookback()
@@ -118,6 +118,7 @@ func launch_attack():
 		bullet.facing_right = facing_right
 		bullet.set_initial_position(position)
 		bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
+		return
 	if weapon == "bone_shotgun":
 		var bullet = bone_bullet_wrapper_scene.instance()
 		add_child(bullet)
@@ -131,6 +132,8 @@ func launch_attack():
 			melee_active = true
 			$MeleeTimer.set_wait_time(melee_interval)
 			$MeleeTimer.start()
+	if weapon_node.has_node("ShootSound"):
+		weapon_node.get_node("ShootSound").play()
 	
 func set_facing():
 	get_node("BodySprite").flip_h = facing_right

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Limbs/BoneShotgun.gd" type="Script" id=1]
 [ext_resource path="res://Limbs/Skeleton arm.svg" type="Texture" id=2]
+[ext_resource path="res://Limbs/bone_cracking_02.wav" type="AudioStream" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -18,7 +19,7 @@ custom_solver_bias = 0.0
 radius = 3.50136
 height = 35.4705
 
-[node name="BoneShotgun" type="KinematicBody2D"]
+[node name="BoneShotgun" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 32
@@ -40,5 +41,14 @@ position = Vector2( 1, 1 )
 rotation = 0.785398
 shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 3 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

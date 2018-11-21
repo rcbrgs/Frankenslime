@@ -16,6 +16,6 @@ func _on_BoneBullet_body_entered(body):
 	queue_free()
 	
 func _process(delta):
-	if position.y < -10:
-		print("shot outside window")
+	if position.y > get_node("../SceneParameters").max_y + 100:
+		print("BoneBullet._process: bullet outside window")
 		queue_free()
