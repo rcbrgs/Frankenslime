@@ -153,6 +153,7 @@ func remove_hp(damage):
 	if HP <= 0:
 		dead = true
 		hide()
+		get_node("../GameDirector").game_over()
 		
 func unwield():
 	weapon = "spit"
