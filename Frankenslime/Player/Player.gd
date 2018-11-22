@@ -61,8 +61,9 @@ func _physics_process(delta):
 	if collision != null: 
 		if collision.collider.get_parent() != self:
 			if collision.collider.has_method("wield"):
-				unwield()
-				weapon = collision.collider.wield(self)
+				if collision.collider.being_wielded == false:
+					unwield()
+					weapon = collision.collider.wield(self)
 			elif collision.collider.has_method("remove_hp"):
 				if melee_active:
 					print("Player._physics_process: melee hit")
@@ -128,12 +129,7 @@ func launch_attack():
 		bullet.collision_layer_bit = 8
 		bullet.shoot()
 	if weapon == "pincer":
-		if $MeleeTimer.is_stopped():
-			#weapon_node.set_collision_mask_bit(1, true)
-			weapon_node.get_node("AnimatedSprite").play("attacking")
-			melee_active = true
-			$MeleeTimer.set_wait_time(melee_interval)
-			$MeleeTimer.start()
+		$Melee.activate()
 	if weapon_node.has_node("ShootSound"):
 		weapon_node.get_node("ShootSound").play()
 	
@@ -156,11 +152,6 @@ func unwield():
 	weapon = "spit"
 	emit_signal("unwield_weapon")
 
-func _on_MeleeTimer_timeout():
-	#weapon_node.set_collision_mask_bit(1, false)
-	weapon_node.get_node("AnimatedSprite").play("default")
-	melee_active = false
-	
 var jumping = false
 var falling = false
 var jump_y = 0

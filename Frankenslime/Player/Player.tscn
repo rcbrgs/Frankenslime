@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Blob simple 01.svg" type="Texture" id=2]
+[ext_resource path="res://Player/Melee.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -77,20 +78,13 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform", "Visibility" ]
 
-[node name="MeleeTimer" type="Timer" parent="." index="4"]
+[node name="JumpTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="JumpTimer" type="Timer" parent="." index="5"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = true
-autostart = false
-
-[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[node name="Melee" parent="." index="5" instance=ExtResource( 3 )]
 
 

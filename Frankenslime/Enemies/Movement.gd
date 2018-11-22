@@ -1,10 +1,11 @@
 extends Node
 
-enum behaviours { idle, attacking, fleeing }
+enum behaviours { idle, attacking, pursuing, fleeing }
 
 export (float) var attack_wait_time = 2
 export (int) var attack_move_speed = 150
 export (float) var attack_move_wait_time = 0.05
+export (float) var melee_distance = 50
 export (int) var speed = 1
 export (float) var vision_radius = 500
 export (float) var wander_direction_interval = 3
@@ -35,18 +36,32 @@ func _physics_process(delta):
 	var motion = Vector2(0,0)
 		
 	behaviour = decide_behaviour()
+	#print("Movement._physics_process: behaviour = %s" % behaviour)
 	if behaviour == behaviours.idle:
 		direction = wander()
 		motion = direction * wander_speed
-	if behaviour == behaviours.attacking:
+	if behaviour == behaviours.pursuing:
 		direction = (player.position - enemy.position).normalized()
 		motion = direction * attack_move_speed
 		launch_attack()
+	if behaviour == behaviours.attacking:
+		launch_attack()
 	
 	set_facing(enemy.position, enemy.position + motion * delta)
-	enemy.move_and_collide(motion * delta)
+	var collision = enemy.move_and_collide(motion * delta)
 	clamp_to_playing_field()
 	
+	treat_collision(collision)
+
+func treat_collision(collision):
+	if collision == null:
+		return
+	#print("Movement.treat_collision: collided with %s" % collision.collider.name)
+	if collision.collider.get_parent().name == "Player":
+		if "melee_damage" in collision.collider:
+			if player.melee_active:
+				enemy.remove_hp(collision.collider.melee_damage)
+
 func clamp_to_playing_field():
 	enemy.position.y = clamp(enemy.position.y, scene.min_y, scene.max_y)
 
@@ -63,7 +78,9 @@ func decide_behaviour():
 		if not player.dead:
 			var distance = enemy.position.distance_to(player.position)
 			if distance < vision_radius:
-				behaviour = behaviours.attacking
+				behaviour = behaviours.pursuing
+				if distance < melee_distance:
+					behaviour = behaviours.attacking
 	return behaviour
 
 func wander():

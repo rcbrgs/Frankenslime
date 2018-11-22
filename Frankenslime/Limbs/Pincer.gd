@@ -1,7 +1,10 @@
 extends KinematicBody2D
 
+export (bool) var being_wielded = false
 export (int) var damage = 3
+export (int) var melee_damage = 3
 export (float) var fire_interval = 2
+export (float) var melee_interval = 2
 
 onready var weapon_scene = preload("res://Limbs/Pincer.tscn")
 

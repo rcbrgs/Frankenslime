@@ -8,7 +8,7 @@
 [ext_resource path="res://Levels/GameDirector.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=7]
 
-[node name="Forest" type="Node" index="0"]
+[node name="Forest" type="Node"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
@@ -74,5 +74,8 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 [node name="Pincer" parent="." index="6" instance=ExtResource( 7 )]
 
 position = Vector2( 658.052, 764.944 )
+being_wielded = false
+melee_damage = 3
+melee_interval = 2
 
 
