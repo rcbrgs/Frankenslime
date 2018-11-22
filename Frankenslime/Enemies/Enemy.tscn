@@ -9,13 +9,12 @@
 
 script = ExtResource( 1 )
 attack_wait_time = 2
-attack_move_speed = 5
+attack_move_speed = 150
 attack_move_wait_time = 0.05
-vision_radius = 400
-wander_range_x = 400
-wander_step_x = 25
-wander_step_y = 5
-wander_wait_time = 0.5
+speed = 1
+vision_radius = 500
+wander_direction_interval = 3
+wander_speed = 100
 
 [node name="WanderTimer" type="Timer" parent="Movement" index="0"]
 

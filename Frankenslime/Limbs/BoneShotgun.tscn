@@ -19,7 +19,7 @@ custom_solver_bias = 0.0
 radius = 3.50136
 height = 35.4705
 
-[node name="BoneShotgun" type="KinematicBody2D" index="0"]
+[node name="BoneShotgun" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 32
@@ -42,7 +42,7 @@ rotation = 0.785398
 shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="ShootSound" type="AudioStreamPlayer" parent="." index="2"]
+[node name="ShootSound_disabled" type="AudioStreamPlayer" parent="." index="2"]
 
 stream = ExtResource( 3 )
 volume_db = 0.0

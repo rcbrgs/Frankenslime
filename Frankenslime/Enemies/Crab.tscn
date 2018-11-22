@@ -54,13 +54,14 @@ _sections_unfolded = [ "Transform" ]
 [node name="Pincer" parent="." index="3" instance=ExtResource( 4 )]
 
 collision_layer = 2
+collision_mask = 0
 fire_interval = 2
 
 [node name="BlockBody" type="KinematicBody2D" parent="." index="4"]
 
 input_pickable = false
 collision_layer = 4
-collision_mask = 3
+collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 5 )
 _sections_unfolded = [ "Collision" ]

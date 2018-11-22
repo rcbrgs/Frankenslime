@@ -7,7 +7,7 @@
 [ext_resource path="res://Levels/background_vektor_v5-1-01.png" type="Texture" id=5]
 [ext_resource path="res://Levels/GameDirector.tscn" type="PackedScene" id=6]
 
-[node name="Forest" type="Node"]
+[node name="Forest" type="Node" index="0"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 

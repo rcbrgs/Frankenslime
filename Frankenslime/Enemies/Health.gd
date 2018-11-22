@@ -13,6 +13,7 @@ func remove_hp(damage):
 		yield_limb()
 		level.get_node("AIDirector").total_enemy_HP -= max_HP
 		level.get_node("GameDirector").add_points(max_HP)
+		print("Health.remove_hp: enemy died at %s" % father.position)
 		father.queue_free()
 		
 func yield_limb():
