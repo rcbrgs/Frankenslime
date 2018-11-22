@@ -25,7 +25,7 @@ func enemy_outside_window():
 
 func _physics_process(delta):
 	if enemy_outside_window():
-		print("Movement:_physics_process: freeing at %s for min_save_pos %s" % [enemy.position, get_node("../../../Player").min_save_pos])
+		#print("Movement:_physics_process: freeing at %s for min_save_pos %s" % [enemy.position, get_node("../../../Player").min_save_pos])
 		get_node("../../../AIDirector").total_enemy_HP -= get_node("../Health").max_HP
 		enemy.queue_free()
 		return

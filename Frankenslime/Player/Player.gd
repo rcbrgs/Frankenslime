@@ -68,6 +68,8 @@ func _physics_process(delta):
 					print("Player._physics_process: melee hit")
 					collision.collider.remove_hp(weapon_node.damage)
 					melee_active = false
+			elif collision.collider.has_method("do_damage"):
+				collision.collider.do_damage(self)
 			else:
 				print("Player._physics_process: untreated collision with %s" % collision.collider.name)
 				
@@ -139,6 +141,9 @@ func set_facing():
 	get_node("BodySprite").flip_h = facing_right
 	if weapon_node != null:
 		weapon_node.get_node("AnimatedSprite").flip_h = facing_right
+	
+func take_damage(damage):
+	remove_hp(damage)
 	
 func remove_hp(damage):
 	HP -= damage
