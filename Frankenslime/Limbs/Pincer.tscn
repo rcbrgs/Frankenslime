@@ -24,7 +24,7 @@ custom_solver_bias = 0.0
 radius = 10.0
 height = 17.8161
 
-[node name="Pincer" type="KinematicBody2D"]
+[node name="Pincer" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 32

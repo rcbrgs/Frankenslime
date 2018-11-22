@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var is_melee = false
+var is_ranged = true
+
 export (bool) var being_wielded = false
 export (float) var fire_interval = 0.5
 

@@ -19,7 +19,6 @@ var dead = false
 var facing_right = false
 var weapon = "spit"
 var weapon_node = null
-var melee_active = false
 
 var min_save_pos = 0 # The leftmost position of the walkable window
 var min_last_pos = 0
@@ -65,10 +64,10 @@ func _physics_process(delta):
 					unwield()
 					weapon = collision.collider.wield(self)
 			elif collision.collider.has_method("remove_hp"):
-				if melee_active:
+				if $Melee.melee_active:
 					print("Player._physics_process: melee hit")
 					collision.collider.remove_hp(weapon_node.damage)
-					melee_active = false
+					$Melee.melee_active = false
 			elif collision.collider.has_method("do_damage"):
 				collision.collider.do_damage(self)
 			else:

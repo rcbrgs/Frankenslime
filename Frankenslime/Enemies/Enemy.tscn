@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Enemies/Movement.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Health.gd" type="Script" id=2]
+[ext_resource path="res://Player/Melee.tscn" type="PackedScene" id=3]
 
 [node name="Enemy" type="Node2D"]
 
@@ -11,6 +12,7 @@ script = ExtResource( 1 )
 attack_wait_time = 2
 attack_move_speed = 150
 attack_move_wait_time = 0.05
+melee_distance = 50
 speed = 1
 vision_radius = 500
 wander_direction_interval = 3
@@ -40,5 +42,7 @@ autostart = false
 [node name="Health" type="Node" parent="." index="1"]
 
 script = ExtResource( 2 )
+
+[node name="Melee" parent="." index="2" instance=ExtResource( 3 )]
 
 

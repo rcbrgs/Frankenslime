@@ -43,9 +43,11 @@ func _physics_process(delta):
 	if behaviour == behaviours.pursuing:
 		direction = (player.position - enemy.position).normalized()
 		motion = direction * attack_move_speed
-		launch_attack()
+		launch_ranged_attack()
 	if behaviour == behaviours.attacking:
-		launch_attack()
+		direction = (player.position - enemy.position).normalized()
+		motion = direction * attack_move_speed
+		launch_melee_attack()
 	
 	set_facing(enemy.position, enemy.position + motion * delta)
 	var collision = enemy.move_and_collide(motion * delta)
@@ -57,19 +59,34 @@ func treat_collision(collision):
 	if collision == null:
 		return
 	#print("Movement.treat_collision: collided with %s" % collision.collider.name)
+	if collision.collider.name == "Player":
+		resolve_melee_with_player()
 	if collision.collider.get_parent().name == "Player":
-		if "melee_damage" in collision.collider:
-			if player.melee_active:
-				enemy.remove_hp(collision.collider.melee_damage)
+		#print("Movement.treat_collision: belongs to Player")
+		resolve_melee_with_player()
+
+func resolve_melee_with_player():
+	if player.get_node("Melee").melee_active:
+		enemy.remove_hp(player.weapon_node.melee_damage)
+	if get_node("../Melee").melee_active:
+		#print("Movement.treat_collision: remove hp from player")
+		player.remove_hp(enemy.weapon_node.melee_damage)
 
 func clamp_to_playing_field():
 	enemy.position.y = clamp(enemy.position.y, scene.min_y, scene.max_y)
 
-func launch_attack():
+func launch_ranged_attack():
+	if not enemy.weapon_node.is_ranged:
+		launch_melee_attack()
 	if $AttackTimer.is_stopped():
 		enemy.shoot()
 		$AttackTimer.set_wait_time(attack_wait_time)
 		$AttackTimer.start()
+
+func launch_melee_attack():
+	if not enemy.weapon_node.is_melee:
+		launch_ranged_attack()
+	get_node("../Melee").activate()
 
 func decide_behaviour():
 	var behaviour = behaviours.idle
