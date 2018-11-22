@@ -16,6 +16,7 @@ onready var player = get_parent().get_parent().get_parent().get_node("Player")
 onready var scene = get_node("../../../SceneParameters")
 
 var latest_wander_direction = Vector2(0,0)
+var behaviour_lock_attack = false
 
 func enemy_outside_window():
 	if enemy.position.x < get_node("../../../Player").min_save_pos - 100:
@@ -89,6 +90,8 @@ func launch_melee_attack():
 	get_node("../Melee").activate()
 
 func decide_behaviour():
+	if behaviour_lock_attack:
+		return behaviours.attacking
 	var behaviour = behaviours.idle
 	# can we see player?
 	if player != null:

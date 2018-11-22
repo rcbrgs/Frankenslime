@@ -115,7 +115,7 @@ func camera_and_lookback():
 		#print(get_viewport().size.x)
 	
 	if min_save_pos - latest_save_pos > get_viewport().size.x:
-		print("Moved one screen worth of pixels to the right")
+		#print("Player.camera_and_lookback: Moved one screen worth of pixels to the right")
 		latest_save_pos = min_save_pos
 		get_node("../GameDirector").add_points(1)
 	

@@ -16,6 +16,7 @@ func remove_hp(damage):
 		level.get_node("GameDirector").add_points(max_HP)
 		#print("Health.remove_hp: enemy died at %s" % father.position)
 		father.queue_free()
+	father.get_node("Enemy/Movement").behaviour_lock_attack = true
 		
 func yield_limb():
 	var limb_type = father.limb_type
