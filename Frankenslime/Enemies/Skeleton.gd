@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export (int) var HP = 2
+export (int) var HP = 3
 
 var limb_type = "BoneShotgun"
 onready var weapon_node = get_node("Weapon")

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Levels/GameDirector.gd" type="Script" id=1]
 
-[node name="GameDirector" type="Node"]
+[node name="GameDirector" type="Node" index="0"]
 
 script = ExtResource( 1 )
 

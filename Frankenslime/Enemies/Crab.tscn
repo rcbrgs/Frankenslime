@@ -29,7 +29,7 @@ collision_mask = 9
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-HP = 3
+HP = 2
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
 

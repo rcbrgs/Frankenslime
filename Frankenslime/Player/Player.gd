@@ -20,6 +20,7 @@ var facing_right = false
 var weapon = "spit"
 var weapon_node = null
 
+var latest_save_pos = 0
 var min_save_pos = 0 # The leftmost position of the walkable window
 var min_last_pos = 0
 var motion = Vector2()
@@ -111,7 +112,12 @@ func camera_and_lookback():
 		#print ("positions in left-loop: min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
 		position.x = min_save_pos + 45
 		#print(get_viewport().size.x)
-			
+	
+	if min_save_pos - latest_save_pos > get_viewport().size.x:
+		print("Moved one screen worth of pixels to the right")
+		latest_save_pos = min_save_pos
+		get_node("../GameDirector").add_points(1)
+	
 func launch_attack():
 	#print("launch_attack")
 	if weapon == "spit":
