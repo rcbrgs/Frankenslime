@@ -76,6 +76,7 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 position = Vector2( 658.052, 764.944 )
 being_wielded = false
 melee_damage = 3
+melee_duration = 1
 melee_interval = 2
 
 

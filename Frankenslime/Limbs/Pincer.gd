@@ -7,6 +7,7 @@ export (bool) var being_wielded = false
 export (int) var damage = 3
 export (int) var melee_damage = 3
 export (float) var fire_interval = 2
+export (float) var melee_duration = 1
 export (float) var melee_interval = 2
 
 onready var weapon_scene = preload("res://Limbs/Pincer.tscn")
@@ -17,6 +18,9 @@ func wield(new_parent):
 	#weapon.set_collision_layer_bit(0, true) # now part of player
 	new_parent.add_child(weapon)
 	new_parent.weapon_node = weapon
+	#if has_node("Melee"):
+	#	$Melee/InterActionTimer.set_wait_time(0)
+	#	$Melee/BeginActionTimer.set_wait_time(0)
 	queue_free()
 	new_parent.connect("unwield_weapon", weapon, "_on_Player_unwield_weapon")
 	return "pincer"

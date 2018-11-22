@@ -24,7 +24,7 @@ custom_solver_bias = 0.0
 radius = 10.0
 height = 17.8161
 
-[node name="Pincer" type="KinematicBody2D" index="0"]
+[node name="Pincer" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 32
@@ -36,6 +36,7 @@ being_wielded = false
 damage = 3
 melee_damage = 3
 fire_interval = 2
+melee_duration = 1
 melee_interval = 2
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
