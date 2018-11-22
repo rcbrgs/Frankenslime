@@ -71,6 +71,8 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 [node name="GameDirector" parent="." index="5" instance=ExtResource( 6 )]
 
+prob_yield_limb = 0.1
+
 [node name="Pincer" parent="." index="6" instance=ExtResource( 7 )]
 
 position = Vector2( 658.052, 764.944 )

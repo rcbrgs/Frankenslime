@@ -10,7 +10,8 @@ onready var max_HP = father.HP
 func remove_hp(damage):
 	father.HP -= damage
 	if father.HP <= 0:
-		yield_limb()
+		#yield_limb()
+		level.get_node("GameDirector").despawn(self)
 		level.get_node("AIDirector").total_enemy_HP -= max_HP
 		level.get_node("GameDirector").add_points(max_HP)
 		#print("Health.remove_hp: enemy died at %s" % father.position)

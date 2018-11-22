@@ -64,6 +64,7 @@ func _physics_process(delta):
 				if collision.collider.being_wielded == false:
 					unwield()
 					weapon = collision.collider.wield(self)
+					get_node("../GameDirector").add_points(1)
 			elif collision.collider.has_method("remove_hp"):
 				if $Melee.melee_active:
 					print("Player._physics_process: melee hit")
