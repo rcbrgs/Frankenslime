@@ -25,11 +25,21 @@ var weapon_node = null
 var melee_active = false
 
 var min_save_pos = 0 # The leftmost position of the walkable window
+var oneshot = ""
 var motion = Vector2()
 onready var scene = get_parent().get_node("SceneParameters")
 	
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
+	$AnimatedSprites.connect("animation_finished", self, "_on_AnimatedSprites_animation_finished")
+
+func _on_AnimatedSprites_animation_finished():
+	print("[finished] assigned anim: %s" % get_node("AnimatedSprites/Animator").assigned_animation)
+	var fin_name = get_node("AnimatedSprites/Animator").assigned_animation
+	print("fin name: " + fin_name)
+	if fin_name == "spit":
+		anim_state = "idle"
+		anim_node.change_animation(anim_state, anim_node)
 
 func get_input():
 	motion = Vector2(0,0)
@@ -181,4 +191,5 @@ func _process(delta):
 		anim_node.change_animation(anim_state, anim_node)
 	elif motion == Vector2(0,0):
 		print("motionvector is 0, 0")
-		anim_node.change_animation("idle", anim_node)
+		anim_state = "idle"
+		anim_node.change_animation(anim_state, anim_node)
