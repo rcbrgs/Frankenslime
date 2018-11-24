@@ -8,8 +8,8 @@ export (int) var jump_speed = 25
 export (int) var max_HP = 3
 export (float) var melee_interval = 1
 export (float) var spit_attack_interval = 0.5
-export (int) var horizontal_speed = 10
-export (int) var vertical_speed = 10
+export (int) var horizontal_speed = 500
+export (int) var vertical_speed = 250
 
 onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper.tscn")
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
@@ -22,8 +22,8 @@ var dead = false
 var h_flipper = false
 var weapon = "spit"
 var weapon_node = null
-var melee_active = false
 
+var latest_save_pos = 0
 var min_save_pos = 0 # The leftmost position of the walkable window
 var oneshot = ""
 var motion = Vector2()
@@ -74,19 +74,23 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	set_facing()
-	var collision = move_and_collide(motion)
+	var collision = move_and_collide(motion * delta)
 	if collision != null: 
 		if collision.collider.get_parent() != self:
 			if collision.collider.has_method("wield"):
-				unwield()
-				weapon = collision.collider.wield(self)
+				if collision.collider.being_wielded == false:
+					unwield()
+					weapon = collision.collider.wield(self)
+					get_node("../GameDirector").add_points(1)
 			elif collision.collider.has_method("remove_hp"):
-				if melee_active:
-					print("melee hit")
+				if $Melee.melee_active:
+					print("Player._physics_process: melee hit")
 					collision.collider.remove_hp(weapon_node.damage)
-					melee_active = false
+					$Melee.melee_active = false
+			elif collision.collider.has_method("do_damage"):
+				collision.collider.do_damage(self)
 			else:
-				print("untreated collision: Player and %s" % collision.collider.name)
+				print("Player._physics_process: untreated collision with %s" % collision.collider.name)
 				
 	# Clamp player to scene and forward moving camera2D
 	# only clamping y position for vertical range. x-movement clamping is done in func camera_and_lookback()
@@ -124,7 +128,12 @@ func camera_and_lookback():
 		#print ("positions in left-loop: min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
 		position.x = min_save_pos + 45
 		#print(get_viewport().size.x)
-			
+	
+	if min_save_pos - latest_save_pos > get_viewport().size.x:
+		#print("Player.camera_and_lookback: Moved one screen worth of pixels to the right")
+		latest_save_pos = min_save_pos
+		get_node("../GameDirector").add_points(1)
+	
 func launch_attack():
 	#print("launch_attack")
 	if weapon == "spit":
@@ -133,6 +142,7 @@ func launch_attack():
 		bullet.h_flipper = h_flipper
 		bullet.set_initial_position(position)
 		bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
+		return
 	if weapon == "bone_shotgun":
 		var bullet = bone_bullet_wrapper_scene.instance()
 		add_child(bullet)
@@ -140,12 +150,9 @@ func launch_attack():
 		bullet.collision_layer_bit = 8
 		bullet.shoot()
 	if weapon == "pincer":
-		if $MeleeTimer.is_stopped():
-			#weapon_node.set_collision_mask_bit(1, true)
-			weapon_node.get_node("AnimatedSprite").play("attacking")
-			melee_active = true
-			$MeleeTimer.set_wait_time(melee_interval)
-			$MeleeTimer.start()
+		$Melee.activate()
+	if weapon_node.has_node("ShootSound"):
+		weapon_node.get_node("ShootSound").play()
 	
 func set_facing():
 
@@ -153,22 +160,21 @@ func set_facing():
 	if weapon_node != null:
 		weapon_node.get_node("BodySprite").flip_h = h_flipper
 	
+func take_damage(damage):
+	remove_hp(damage)
+	
 func remove_hp(damage):
 	HP -= damage
 	emit_signal("changed_player_hp", HP, max_HP)
 	if HP <= 0:
 		dead = true
 		hide()
+		get_node("../GameDirector").game_over()
 		
 func unwield():
 	weapon = "spit"
 	emit_signal("unwield_weapon")
 
-func _on_MeleeTimer_timeout():
-	#weapon_node.set_collision_mask_bit(1, false)
-	weapon_node.get_node("AnimatedSprite").play("default")
-	melee_active = false
-	
 var jumping = false
 var falling = false
 var jump_y = 0

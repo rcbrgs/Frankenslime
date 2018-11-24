@@ -16,3 +16,8 @@ func _on_SpitBullet_body_entered(body):
 	#print("body = %s" % body)
 	body.remove_hp(damage)
 	queue_free()
+
+func _process(delta):
+	if position.y > get_node("../SceneParameters").max_y + 100:
+		#print("SpitBullet._process: bullet outside window")
+		queue_free()

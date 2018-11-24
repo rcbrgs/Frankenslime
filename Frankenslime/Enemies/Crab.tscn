@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Enemies/Crab.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Crab body.svg" type="Texture" id=2]
 [ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Limbs/Pincer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Enemies/BlockBody.gd" type="Script" id=5]
+[ext_resource path="res://Player/Melee.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -21,21 +21,15 @@ custom_solver_bias = 0.0
 radius = 9.15495
 height = 49.0623
 
-[sub_resource type="CapsuleShape2D" id=3]
-
-custom_solver_bias = 0.0
-radius = 10.0
-height = 23.4102
-
 [node name="Crab" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 2
-collision_mask = 8
+collision_mask = 9
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-HP = 3
+HP = 2
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
 
@@ -54,21 +48,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="Pincer" parent="." index="3" instance=ExtResource( 4 )]
 
 collision_layer = 2
+collision_mask = 1
+being_wielded = true
+melee_duration = 1
 
-[node name="BlockBody" type="KinematicBody2D" parent="." index="4"]
-
-input_pickable = false
-collision_layer = 4
-collision_mask = 3
-collision/safe_margin = 0.08
-script = ExtResource( 5 )
-_sections_unfolded = [ "Collision" ]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockBody" index="0"]
-
-position = Vector2( -7, 3 )
-rotation = 1.5708
-shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
+[node name="Melee" parent="." index="4" instance=ExtResource( 5 )]
 
 

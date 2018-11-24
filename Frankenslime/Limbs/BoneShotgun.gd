@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+var is_melee = false
+var is_ranged = true
+
+export (bool) var being_wielded = false
 export (float) var fire_interval = 0.5
 
 onready var bone_shotgun_scene = preload("res://Limbs/BoneShotgun.tscn")

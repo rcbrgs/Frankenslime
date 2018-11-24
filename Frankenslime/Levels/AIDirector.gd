@@ -42,5 +42,5 @@ func spawn_an_enemy():
 		enemy = crab_scene.instance()
 	get_parent().add_child(enemy)
 	enemy.translate(initial_position)
-	enemy.get_node("Enemy/Movement").set_initial_position (initial_position)
+	#enemy.get_node("Enemy/Movement").set_initial_position (initial_position)
 	total_enemy_HP += enemy.HP

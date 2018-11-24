@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Enemies/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Skeleton body.svg" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Enemies/BlockBody.gd" type="Script" id=4]
 [ext_resource path="res://Bullets/BoneBulletWrapper.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Limbs/BoneShotgun.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/Melee.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -36,7 +37,7 @@ collision_mask = 8
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-HP = 2
+HP = 3
 
 [node name="BodySprite" type="AnimatedSprite" parent="." index="0"]
 
@@ -55,7 +56,7 @@ shape = SubResource( 2 )
 position = Vector2( 1, 35 )
 input_pickable = false
 collision_layer = 4
-collision_mask = 3
+collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 4 )
 _sections_unfolded = [ "Collision" ]
@@ -70,5 +71,8 @@ shape = SubResource( 3 )
 
 position = Vector2( 5.03648, 5.61763 )
 collision_layer = 2
+being_wielded = true
+
+[node name="Melee" parent="." index="6" instance=ExtResource( 7 )]
 
 

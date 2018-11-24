@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-export (int) var HP = 2
+export (int) var HP = 3
 
 var limb_type = "BoneShotgun"
+onready var weapon_node = get_node("Weapon")
 
 func _ready():
 	get_node("Enemy/Movement").attack_move_wait_time = 0.02

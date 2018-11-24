@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bone_cracking_02.wav-0a7cf2fc892e53f62b4cc92fc2de1978.sample"
+
+[deps]
+
+source_file="res://Limbs/bone_cracking_02.wav"
+dest_files=[ "res://.import/bone_cracking_02.wav-0a7cf2fc892e53f62b4cc92fc2de1978.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
