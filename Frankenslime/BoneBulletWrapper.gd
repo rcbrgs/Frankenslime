@@ -20,13 +20,13 @@ func shoot():
 	bone_up.position = get_parent().position + Vector2(0, 50)
 	bone_mid.position = get_parent().position 
 	bone_down.position = get_parent().position + Vector2(0, -50)
-	var face_right = false
+	var h_flipper = false
 	if get_parent().has_node("Enemy/Movement"):
 		var move_scene = get_parent().get_node("Enemy/Movement") 
-		face_right = move_scene.facing_right
+		h_flipper = move_scene.h_flipper
 	else:
-		face_right = get_parent().facing_right
-	if face_right:
+		h_flipper = get_parent().h_flipper
+	if h_flipper:
 		bone_up.direction = Vector2(1, slantedness)
 		bone_mid.direction = Vector2(1,0)
 		bone_down.direction = Vector2(1, -slantedness)

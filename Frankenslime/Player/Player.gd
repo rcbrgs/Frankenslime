@@ -15,19 +15,31 @@ onready var bone_bullet_wrapper_scene = preload("res://Bullets/BoneBulletWrapper
 onready var spit_bullet_scene = preload("res://Bullets/SpitBullet.tscn")
 onready var HP = max_HP
 
+onready var anim_node = get_node("AnimatedSprites/Animator")
+onready var anim_state = ""
+
 var dead = false
-var facing_right = false
+var h_flipper = false
 var weapon = "spit"
 var weapon_node = null
 var melee_active = false
 
 var min_save_pos = 0 # The leftmost position of the walkable window
-var min_last_pos = 0
+var oneshot = ""
 var motion = Vector2()
 onready var scene = get_parent().get_node("SceneParameters")
 	
 func _ready():
 	emit_signal("changed_player_hp", HP, max_HP)
+	$AnimatedSprites.connect("animation_finished", self, "_on_AnimatedSprites_animation_finished")
+
+func _on_AnimatedSprites_animation_finished():
+	print("[finished] assigned anim: %s" % get_node("AnimatedSprites/Animator").assigned_animation)
+	var fin_name = get_node("AnimatedSprites/Animator").assigned_animation
+	print("fin name: " + fin_name)
+	if fin_name == "spit":
+		anim_state = "idle"
+		anim_node.change_animation(anim_state, anim_node)
 
 func get_input():
 	motion = Vector2(0,0)
@@ -35,25 +47,30 @@ func get_input():
 		return
 	if Input.is_action_pressed("ui_right"):
 		motion.x = horizontal_speed
-		facing_right = true
+		h_flipper = false
+		anim_state = "hop"
 	if Input.is_action_pressed("ui_left"):
 		motion.x = -horizontal_speed
-		facing_right = false
+		h_flipper = true
+		anim_state = "hop"
 	if Input.is_action_pressed("ui_up"):
 		motion.y = -vertical_speed
+		anim_state = "hop"
 	if Input.is_action_pressed("ui_down"):
 		motion.y = vertical_speed
+		anim_state = "hop"
 	if Input.is_action_pressed("action_jump"):
 		jump()
 	if Input.is_action_pressed("action_shoot"):
 		if $AttackTimer.is_stopped():
+			anim_state = "spit"
 			launch_attack()
 			var attack_interval = spit_attack_interval
 			if weapon_node != null:
 				attack_interval = weapon_node.fire_interval
 			$AttackTimer.set_wait_time(attack_interval)
 			$AttackTimer.start()
-
+			
 func _physics_process(delta):
 	get_input()
 	set_facing()
@@ -98,9 +115,7 @@ func camera_and_lookback():
 	# (instead of directly after turning left from middle of screen)
 	if self.position.x + (get_viewport().size.x / 2) > min_save_pos and (position.x - (get_viewport().size.x / 2) > min_save_pos):
 		min_save_pos = self.position.x - (get_viewport().size.x / 2)
-		min_last_pos = self.position.x
 	#print ("min_save_pos: " + str(min_save_pos) + " min_last_pos: " +  str(min_last_pos) + " player position: " + str(position.x))
-	min_last_pos = int(min_last_pos)
 	get_node("Camera2D").limit_left = min_save_pos
 	
 	#adding some 45px threshold offsets to the right in order to trigger conditionals walking to left screen edge.
@@ -115,7 +130,7 @@ func launch_attack():
 	if weapon == "spit":
 		var bullet = spit_bullet_scene.instance()
 		get_parent().add_child(bullet)
-		bullet.facing_right = facing_right
+		bullet.h_flipper = h_flipper
 		bullet.set_initial_position(position)
 		bullet.set_collision_layer_bit(3, 8) # set layer as BulletsFromPlayer
 	if weapon == "bone_shotgun":
@@ -133,9 +148,10 @@ func launch_attack():
 			$MeleeTimer.start()
 	
 func set_facing():
-	get_node("BodySprite").flip_h = facing_right
+
+	get_node("AnimatedSprites").flip_h = h_flipper
 	if weapon_node != null:
-		weapon_node.get_node("AnimatedSprite").flip_h = facing_right
+		weapon_node.get_node("BodySprite").flip_h = h_flipper
 	
 func remove_hp(damage):
 	HP -= damage
@@ -168,3 +184,12 @@ func jump():
 		jump_y = clamp(jump_y, scene.min_y, scene.max_y)
 		jumping = true
 	
+func _process(delta):
+	if anim_state == "spit":
+		anim_node.change_animation(anim_state, anim_node)
+	elif anim_state != "" and motion != Vector2(0, 0):
+		anim_node.change_animation(anim_state, anim_node)
+	elif motion == Vector2(0,0):
+		print("motionvector is 0, 0")
+		anim_state = "idle"
+		anim_node.change_animation(anim_state, anim_node)

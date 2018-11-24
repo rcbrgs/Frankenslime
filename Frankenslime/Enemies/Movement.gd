@@ -94,14 +94,14 @@ func wander():
 	var scene_params = get_node("../../../SceneParameters")
 	#en.position.x = clamp(en.position.x, scene_params.min_x, scene_params.max_x)
 
-var facing_right = false
+var h_flipper = false
 func set_facing(origin, destiny):
 	if destiny.x - origin.x > 0: # moving to the right
-		facing_right = true
+		h_flipper = true
 	else:
-		facing_right = false
+		h_flipper = false
 			
-	get_parent().get_parent().get_node("BodySprite").flip_h = facing_right
+	get_parent().get_parent().get_node("BodySprite").flip_h = h_flipper
 	if not get_parent().get_parent().has_node("Weapon"):
 		return
-	get_parent().get_parent().get_node("Weapon").get_node("AnimatedSprite").flip_h = facing_right
+	get_parent().get_parent().get_node("Weapon").get_node("AnimatedSprite").flip_h = h_flipper

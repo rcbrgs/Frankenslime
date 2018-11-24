@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/0_a_slime_jump_v6_2-05.png-297c4ee36291409fc84d4bca81d26708.stex"
+path="res://.import/exp__0002_0_a_idle_v1-03.png.png-b4e3b8c035bd7eafbf367c493bcf6809.stex"
 
 [deps]
 
-source_file="res://Player/anims/0_a_slime_jump_v6_2-05.png"
-dest_files=[ "res://.import/0_a_slime_jump_v6_2-05.png-297c4ee36291409fc84d4bca81d26708.stex" ]
+source_file="res://Player/anim/idle/exp__0002_0_a_idle_v1-03.png.png"
+dest_files=[ "res://.import/exp__0002_0_a_idle_v1-03.png.png-b4e3b8c035bd7eafbf367c493bcf6809.stex" ]
 
 [params]
 

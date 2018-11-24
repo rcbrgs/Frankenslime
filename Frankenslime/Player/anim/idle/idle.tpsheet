@@ -1,0 +1,78 @@
+{
+	"textures": [
+		{
+			"image": "idle.png",
+			"size": {
+				"w": 488,
+				"h": 122
+			},
+			"sprites": [
+				{
+					"filename": "exp__0000_0_a_idle_v1-01.png.png",
+					"region": {
+						"x": 1,
+						"y": 1,
+						"w": 120,
+						"h": 120
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "exp__0001_0_a_idle_v1-02.png.png",
+					"region": {
+						"x": 123,
+						"y": 1,
+						"w": 120,
+						"h": 120
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "exp__0002_0_a_idle_v1-03.png.png",
+					"region": {
+						"x": 245,
+						"y": 1,
+						"w": 120,
+						"h": 120
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "exp__0003_0_a_idle_v1-04.png.png",
+					"region": {
+						"x": 367,
+						"y": 1,
+						"w": 120,
+						"h": 120
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:3b95d9b412d6cad1688a1da2291bcbae:9a1822c75778b7dc260f6c06469f24ae:b699c48b590b4685ff8c55f69c0652c5$"
+	}
+}

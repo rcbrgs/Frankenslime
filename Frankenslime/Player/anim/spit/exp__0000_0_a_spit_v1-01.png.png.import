@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/0_a_slime_jump_v6_2-04.png-84b3ceee300e2cbeb17ee82c7e65af7b.stex"
+path="res://.import/exp__0000_0_a_spit_v1-01.png.png-a10a86728b2541be0590576d199c37cb.stex"
 
 [deps]
 
-source_file="res://Player/anims/0_a_slime_jump_v6_2-04.png"
-dest_files=[ "res://.import/0_a_slime_jump_v6_2-04.png-84b3ceee300e2cbeb17ee82c7e65af7b.stex" ]
+source_file="res://Player/anim/spit/exp__0000_0_a_spit_v1-01.png.png"
+dest_files=[ "res://.import/exp__0000_0_a_spit_v1-01.png.png-a10a86728b2541be0590576d199c37cb.stex" ]
 
 [params]
 

@@ -4,11 +4,11 @@ export (int) var damage = 1
 export (float) var speed_x = 2000
 export (float) var speed_y
 
-var facing_right = false
+var h_flipper = false
 
 func set_initial_position(pos):
 	position = pos
-	if not facing_right:
+	if h_flipper:
 		speed_x *= -1
 	apply_impulse(Vector2(0,0), Vector2(speed_x, -speed_y))
 	
