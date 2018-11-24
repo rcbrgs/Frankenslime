@@ -19,7 +19,7 @@ custom_solver_bias = 0.0
 radius = 3.50136
 height = 35.4705
 
-[node name="BoneShotgun" type="KinematicBody2D"]
+[node name="BoneShotgun" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 32

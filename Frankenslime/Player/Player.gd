@@ -34,9 +34,9 @@ func _ready():
 	$AnimatedSprites.connect("animation_finished", self, "_on_AnimatedSprites_animation_finished")
 
 func _on_AnimatedSprites_animation_finished():
-	print("[finished] assigned anim: %s" % get_node("AnimatedSprites/Animator").assigned_animation)
+	#print("[finished] assigned anim: %s" % get_node("AnimatedSprites/Animator").assigned_animation)
 	var fin_name = get_node("AnimatedSprites/Animator").assigned_animation
-	print("fin name: " + fin_name)
+	#print("fin name: " + fin_name)
 	if fin_name == "spit":
 		anim_state = "idle"
 		anim_node.change_animation(anim_state, anim_node)
@@ -158,7 +158,7 @@ func set_facing():
 
 	get_node("AnimatedSprites").flip_h = h_flipper
 	if weapon_node != null:
-		weapon_node.get_node("BodySprite").flip_h = h_flipper
+		weapon_node.get_node("AnimatedSprite").flip_h = ! h_flipper
 	
 func take_damage(damage):
 	remove_hp(damage)
@@ -196,6 +196,6 @@ func _process(delta):
 	elif anim_state != "" and motion != Vector2(0, 0):
 		anim_node.change_animation(anim_state, anim_node)
 	elif motion == Vector2(0,0):
-		print("motionvector is 0, 0")
+		#print("motionvector is 0, 0")
 		anim_state = "idle"
 		anim_node.change_animation(anim_state, anim_node)

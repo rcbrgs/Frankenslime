@@ -25,7 +25,7 @@ func shoot():
 		var move_scene = get_parent().get_node("Enemy/Movement") 
 		h_flipper = move_scene.h_flipper
 	else:
-		h_flipper = get_parent().h_flipper
+		h_flipper = ! get_parent().h_flipper
 	if h_flipper:
 		bone_up.direction = Vector2(1, slantedness)
 		bone_mid.direction = Vector2(1,0)

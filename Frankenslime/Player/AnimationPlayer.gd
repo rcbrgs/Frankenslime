@@ -16,10 +16,10 @@ func change_animation(anim_state, anim_node):
 		
 	if anim_state != anim_node.assigned_animation:
 #	anim_node.stop()
-		print("animstate is: " + anim_state)
-		print("assigned anim is: " + anim_node.assigned_animation)
+		#print("animstate is: " + anim_state)
+		#print("assigned anim is: " + anim_node.assigned_animation)
 #		local_anim_node = anim_node
-		print("current anim is: " + anim_node.current_animation)
+		#print("current anim is: " + anim_node.current_animation)
 		anim_node.play(anim_state)
 #	print("current anim is: " + anim_node.current_animation)
 		
