@@ -35,9 +35,6 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="GUI" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
 
-margin_right = 340.0
-margin_bottom = 60.0
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
 layer = -1
@@ -70,3 +67,5 @@ region_rect = Rect2( 0, 0, 1920, 1080 )
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 [node name="GameDirector" parent="." index="5" instance=ExtResource( 6 )]
+
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/anim/idle/exp__0000_0_a_idle_v1-01.png.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Player/anim/hop/exp__0004_0_a_hop_v1-05.png.png" type="Texture" id=17]
 [ext_resource path="res://Player/anim/hop/exp__0005_0_a_hop_v1-06.png.png" type="Texture" id=18]
 [ext_resource path="res://Player/AnimationPlayer.gd" type="Script" id=19]
+[ext_resource path="res://Player/Melee.tscn" type="PackedScene" id=20]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -221,6 +222,6 @@ wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="Melee" parent="." index="5" instance=ExtResource( 3 )]
+[node name="Melee" parent="." index="5" instance=ExtResource( 20 )]
 
 
